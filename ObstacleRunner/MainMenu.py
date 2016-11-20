@@ -1,6 +1,6 @@
 from ControlsPage import *
 from Settings import *
-
+import Player
 
 class MainMenu:
     def __init__(self):
@@ -26,8 +26,7 @@ class MainMenu:
             Buttons().buttonBorder(brightGreen, 275, 405, 260, 50)
             if click[0] == 1:
                 from HighScores import HighScores
-                chris = []
-                HighScores("bob", chris).highScoresPage()
+                HighScores().highScoresPage()
         else:
             Buttons().buttonBorder(white, 270, 400, 270, 60)
             Buttons().buttonBorder(green, 275, 405, 260, 50)
@@ -74,7 +73,7 @@ class MainMenu:
                     quit()
 
             # black screen
-            screen.fill(black)
+            screen.fill(teal)
             textSurface, textRectange = Buttons().text_objects(title , self.bigMainText)
             textRectange.center = ((display_width / 2), (display_height / 15))
             screen.blit(textSurface, textRectange)

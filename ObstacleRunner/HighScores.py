@@ -6,19 +6,19 @@ import json
 
 class HighScores:
 
-    def __init__(self, userName, highScoreList):
+    def __init__(self):
         self.fileName = "HighScore.json"
-        self.userName = userName
-        self.highScoreList = highScoreList
+        self.userName = ""
+        self.highScoreList = []
         self.fontName = FONTNAME
         self.score = 0
 
     def highScoresPage(self):
         padding_y = 0
-        maxScores = 8  # We *could* paint every score, but it's not any good if you can't see them (because we run out of the screen).
+        maxScores = 8
         scoresCount = 1
         highScore = True
-        screen.fill(black)
+        screen.fill(teal)
         with open(self.fileName) as highscore_file:
             self.highScoreList = json.load(highscore_file)
         while highScore:
@@ -75,13 +75,12 @@ class HighScores:
         with open(self.fileName) as highscore_file:
             self.highScoreList = json.load(highscore_file)
 
-        if not self.highScoreList == None:  # Make sure the prev. scores are loaded.
+        if not self.highScoreList:  # Make sure the prev. scores are loaded.
             new_json_score = {  # Create a JSON-object with the score, name
                 "name": self.userName,
                 "score": self.score,
             }
             self.highScoreList.append(new_json_score)  # Add the score to the list of scores.
-
             self.highScoreList = self.sortHighScores(self.highScoreList)  # Sort the scores.
 
             highscore_file = open(self.fileName, "w")
@@ -96,21 +95,22 @@ class HighScores:
                 # Add every score to a dictionary with its score as key.
                 obj["score"]] = obj
         # Read the sorted dictionary in reverse order (highest score first)...
-        for key in sorted(scores_dict.keys(),reverse=True):
+        for key in sorted(scores_dict.keys(), reverse=True):
             sorted_list.append(scores_dict[key])  # ...and add it to a list.
 
         return sorted_list  # Returns a sorted list.
 
-    def getUserName(self):
+    def getUserName(self, score):
+        self.score = score
         loop = True
         while loop:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.unicode.isalpha():
                         self.userName += event.unicode
-                    elif event.key == K_BACKSPACE:
+                    if event.key == K_BACKSPACE:
                         self.userName = self.userName[:-1]
-                    elif event.key == K_RETURN:
+                    if event.key == K_RETURN:
                         self.addHighScores()
                         loop = False
                 elif event.type == QUIT:
@@ -118,3 +118,4 @@ class HighScores:
                     quit()
             screen.blit(pygame.font.Font(self.fontName, 50).render(self.userName, -1, white), (100, 500))
             pygame.display.update()
+

@@ -956,12 +956,14 @@ class MahyarSpaceInvaderI:
                 self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("Press   to Play Again", -1, self.brightGreen),(50, 200))
                 self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("P", -1, self.teal), (160, 200))
                 self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("Press    to go to MainMenu", -1, self.brightGreen),(50, 250))
-                self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("M", -1, self.teal), (160, 250))
+                self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("M", -1, self.teal), (170, 250))
+
                 if highscoreCount == 1:
                     self.screen.blit(pygame.font.Font("game_font.ttf", 50).render("Enter your name for the HighScore List", -1, self.brightGreen),(10, 450))
                     self.getUserName()
                     self.addHighScores()
                     highscoreCount = 0
+
                 key = pygame.key.get_pressed()
                 if key[K_p]:
                     self.playAgain()
