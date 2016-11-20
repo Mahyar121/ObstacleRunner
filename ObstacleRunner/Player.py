@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.last_update = 0
         self.load_images()
         self.rect = self.image.get_rect()
-        self.rect.center = vector2(100,580)
+        self.rect.center = vector2(100 ,580)
         self.position = vector2(100,580)
         self.velocity = vector2(0, 0)
         self.acceleration = vector2(0, 0)

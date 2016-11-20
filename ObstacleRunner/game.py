@@ -28,6 +28,7 @@ class Game:
         self.running = True
         self.playerDead = False
         self.highscore = HighScores()
+        self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
 
 
     def new(self):
@@ -39,9 +40,10 @@ class Game:
         self.all_sprites.add(self.player)
         self.highscore = HighScores()
         self.playerDead = False
+        self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
         # creates a platform
         for platform in PLATFORM_LIST:
-            plat = Platform(*platform)
+            plat = Platform(self, *platform)
             self.all_sprites.add(plat)
             self.platforms.add(plat)
 
@@ -67,13 +69,13 @@ class Game:
                 self.player.velocity.y = 0
         # if player reaches top of the screen move the camera
         if self.player.rect.top <= display_height / 4:
-            self.player.position.y += abs(self.player.velocity.y)
+            self.player.position.y += max(abs(self.player.velocity.y), 2)
             # move platforms down based on player speed
             for plat in self.platforms:
-                plat.rect.y += abs(self.player.velocity.y)
+                plat.rect.y += max(abs(self.player.velocity.y), 2)
                 if plat.rect.top >= display_height:
                     plat.kill()
-                    self.highscore.score += 10
+                    self.highscore.score += 0.1
         # player death
         if self.player.rect.bottom > display_height:
             for sprite in self.all_sprites:
@@ -82,16 +84,15 @@ class Game:
                     sprite.kill()
                     self.playerDead = True
 
-
+        '''
         # spawn new platforms
         while len(self.platforms) < 10:
-            width = random.randrange(50, 100)
-            p = Platform(random.randrange(0, display_width - width),
-                         random.randrange(-75, -30),
-                         width, 20)
+            width = random.randrange(100, 200)
+            p = Platform(self, random.randrange(0, display_width - width),
+                         random.randrange(-75, -30))
             self.platforms.add(p)
             self.all_sprites.add(p)
-
+        '''
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -101,6 +102,7 @@ class Game:
     def draw(self):
         screen.fill(teal)
         self.all_sprites.draw(screen)
+        screen.blit(self.player.image, self.player.rect)
         screen.blit(self.font.render("Score: {}".format(self.highscore.score), -1, white), (500, 10))
         if self.playerDead:
             highscore = 1

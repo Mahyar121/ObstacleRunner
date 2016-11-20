@@ -8,7 +8,7 @@ title = "Obstacle Runner"
 clock = pygame.time.Clock()
 FPS = 60
 FONTNAME = "AntsyPants.ttf"
-spritesheetPlatformFile = "spritesheet_platforms.png"
+spritesheetPlatformFile = "tiles_spritesheet.png"
 playerspritesheetFile = "p1_walk.png"
 # global vector
 vector2 = pygame.math.Vector2
