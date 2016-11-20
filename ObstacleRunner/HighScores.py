@@ -42,32 +42,34 @@ class HighScores:
             screen.blit(textSurface, textRectange)
 
             line = "_____________________________________________________________________"
-            screen.blit(pygame.font.Font(self.fontName, 50).render(line, -1, green), (0, 80))
-            screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, brightGreen),(270, 70))
+            screen.blit(pygame.font.Font(self.fontName, 50).render(line, -1, white), (0, 81))
+            screen.blit(pygame.font.Font(self.fontName, 50).render(line, -1, red), (0, 80))
+            screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, white), (272, 71))
+            screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, red),(270, 70))
 
             mouse = pygame.mouse.get_pos()
             click = pygame.mouse.get_pressed()
             # quit button
             if 505 + 280 > mouse[0] > 505 and 545 + 40 > mouse[1] > 545:
                 Buttons().buttonBorder(white, 500, 540, 290, 50)
-                Buttons().buttonBorder(brightGreen, 505, 545, 280, 40)
+                Buttons().buttonBorder(pink, 505, 545, 280, 40)
                 if click[0] == 1:
                     pygame.quit()
                     quit()
             else:
                 Buttons().buttonBorder(white, 500, 540, 290, 50)
-                Buttons().buttonBorder(green, 505, 545, 280, 40)
+                Buttons().buttonBorder(red, 505, 545, 280, 40)
             Buttons().textButton("Quit", 505, 545, 280, 40)
             # back button
             if 25 + 280 > mouse[0] > 25 and 545 + 40 > mouse[1] > 545:
                 Buttons().buttonBorder(white, 20, 540, 290, 50)
-                Buttons().buttonBorder(brightGreen, 25, 545, 280, 40)
+                Buttons().buttonBorder(pink, 25, 545, 280, 40)
                 if click[0] == 1:
                     from MainMenu import MainMenu
                     MainMenu().game_intro()
             else:
                 Buttons().buttonBorder(white, 20, 540, 290, 50)
-                Buttons().buttonBorder(green, 25, 545, 280, 40)
+                Buttons().buttonBorder(red, 25, 545, 280, 40)
             Buttons().textButton("Back", 25, 545, 280, 40)
             pygame.display.update()
 

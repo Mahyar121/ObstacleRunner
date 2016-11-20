@@ -11,26 +11,26 @@ class ControlsPage:
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         # quit button
-        if 480 + 260 > mouse[0] > 480 and 545 + 40 > mouse[1] > 545:
-            Buttons().buttonBorder(white, 475, 540, 290, 50)
-            Buttons().buttonBorder(brightGreen, 480, 545, 280, 40)
+        if 480 + 300 > mouse[0] > 480 and 545 + 40 > mouse[1] > 545:
+            Buttons().buttonBorder(white, 475, 540, 310, 50)
+            Buttons().buttonBorder(pink, 480, 545, 300, 40)
             if click[0] == 1:
                 pygame.quit()
                 quit()
         else:
-            Buttons().buttonBorder(white, 475, 540, 290, 50)
-            Buttons().buttonBorder(green, 480, 545, 280, 40)
-        Buttons().textButton("Quit", 480, 545, 280, 40)
+            Buttons().buttonBorder(white, 475, 540, 310, 50)
+            Buttons().buttonBorder(red, 480, 545, 300, 40)
+        Buttons().textButton("Quit", 480, 545, 300, 40)
         # back button
-        if 80 + 260 > mouse[0] > 80 and 545 + 40 > mouse[1] > 545:
+        if 80 + 280 > mouse[0] > 80 and 545 + 40 > mouse[1] > 545:
             Buttons().buttonBorder(white, 75, 540, 290, 50)
-            Buttons().buttonBorder(brightGreen, 80, 545, 280, 40)
+            Buttons().buttonBorder(pink, 80, 545, 280, 40)
             if click[0] == 1:
                 from MainMenu import MainMenu
                 MainMenu().game_intro()
         else:
             Buttons().buttonBorder(white, 75, 540, 290, 50)
-            Buttons().buttonBorder(green, 80, 545, 280, 40)
+            Buttons().buttonBorder(red, 80, 545, 280, 40)
         Buttons().textButton("Back", 80, 545, 280, 40)
         # Control BUTTONS
         # Move Left
@@ -95,7 +95,9 @@ class ControlsPage:
             textRectange.center = ((display_width / 2), (display_height / 15))
             screen.blit(textSurface, textRectange)
 
-            screen.blit(pygame.font.Font(FONTNAME, 40).render("Controls Page", -1, brightGreen), (230, 70))
+            screen.blit(pygame.font.Font(FONTNAME, 40).render("Controls Page", -1, white), (232, 71))
+            screen.blit(pygame.font.Font(FONTNAME, 40).render("Controls Page", -1, red), (230, 70))
+
 
             self.controlButtons()
             pygame.display.update()
