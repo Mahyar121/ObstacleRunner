@@ -71,11 +71,12 @@ class HighScores:
             Buttons().textButton("Back", 25, 545, 280, 40)
             pygame.display.update()
 
-    def addHighScores(self):
+    def addHighScores(self, score):
+        self.score = score
         with open(self.fileName) as highscore_file:
             self.highScoreList = json.load(highscore_file)
 
-        if not self.highScoreList:  # Make sure the prev. scores are loaded.
+        if self.highScoreList:  # Make sure the prev. scores are loaded.
             new_json_score = {  # Create a JSON-object with the score, name
                 "name": self.userName,
                 "score": self.score,
@@ -111,7 +112,7 @@ class HighScores:
                     if event.key == K_BACKSPACE:
                         self.userName = self.userName[:-1]
                     if event.key == K_RETURN:
-                        self.addHighScores()
+                        self.addHighScores(self.score)
                         loop = False
                 elif event.type == QUIT:
                     pygame.quit()

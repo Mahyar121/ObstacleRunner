@@ -2,14 +2,9 @@
 
 import random
 import os
-import json
-import pygame
 from MainMenu import *
-from Player import *
 from Platform import *
-from Settings import *
 from HighScores import *
-
 
 
 class Game:
@@ -40,7 +35,6 @@ class Game:
         from Player import Player
         self.player = Player(self)
         self.all_sprites.add(self.player)
-        self.highscore.score = 0
         self.highscore = HighScores()
         self.playerDead = False
         # creates a platform
@@ -114,8 +108,9 @@ class Game:
                     pygame.font.Font(FONTNAME, 30).render("Enter your name for the HighScore List", -1,
                                                           white), (10, 450))
                 self.highscore.getUserName(self.highscore.score)
-                self.highscore.addHighScores()
+                self.highscore.addHighScores(self.highscore.score)
                 highscore = 0
+                pygame.display.flip()
             if highscore == 0:
                 MainMenu().game_intro()
         pygame.display.flip()
