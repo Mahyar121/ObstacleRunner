@@ -15,7 +15,7 @@ class HighScores:
 
     def highScoresPage(self):
         padding_y = 0
-        maxScores = 8
+        maxScores = 7
         scoresCount = 1
         highScore = True
         screen.fill(teal)
@@ -32,7 +32,7 @@ class HighScores:
                     screen.blit(
                         pygame.font.Font(self.fontName, 50).render(
                             str(scoresCount) + ".  " + str(score["name"]) + ": " + str(score["score"]), 1,
-                            white), (250, 140 + padding_y))
+                            white), (200, 140 + padding_y))
                     padding_y += 50
                     scoresCount += 1
 

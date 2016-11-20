@@ -2,10 +2,11 @@
 
 import random
 import os
+from Settings import *
 from MainMenu import *
 from Platform import *
 from HighScores import *
-
+from Spritesheet import *
 
 class Game:
     def __init__(self):
@@ -27,6 +28,7 @@ class Game:
         self.running = True
         self.playerDead = False
         self.highscore = HighScores()
+
 
     def new(self):
         # start a new game, reset everything
@@ -110,8 +112,7 @@ class Game:
                 self.highscore.getUserName(self.highscore.score)
                 self.highscore.addHighScores(self.highscore.score)
                 highscore = 0
-                pygame.display.flip()
-            if highscore == 0:
+                from MainMenu import MainMenu
                 MainMenu().game_intro()
         pygame.display.flip()
 
