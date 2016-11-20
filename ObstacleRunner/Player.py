@@ -13,62 +13,45 @@ class Player(pygame.sprite.Sprite):
         self.last_update = 0
         self.load_images()
         self.rect = self.image.get_rect()
-        self.rect.center = vector2(100 ,580)
-        self.position = vector2(100,580)
+        self.rect.center = vector2(100, 530)
+        self.position = vector2(100, 530)
         self.velocity = vector2(0, 0)
         self.acceleration = vector2(0, 0)
+        self.jumping = False
 
 
 
     def jump(self):
         #jump if on platform
-        self.rect.x += 1
+        self.rect.y += 2
         hits = pygame.sprite.spritecollide(self, self.game.platforms, False)
-        self.rect.x -= 1
-        if hits:
+        self.rect.y -= 2
+        if hits and not self.jumping:
+            self.jumping = True
             self.velocity.y = -playerJump
+
+    def jumpfall(self):
+        if self.jumping:
+            if self.velocity.y < -2:
+                self.velocity.y = -2
 
     def load_images(self):
 
-        # loading all the images in the list facing right
-        image = self.spritesheet.get_image(0, 0, 66, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(66, 0, 66, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(132, 0, 67, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(0, 93, 66, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(66, 93, 66, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(132, 93, 72, 90)
-        self.walking_frames_r.append(image)
-        image = self.spritesheet.get_image(0, 186, 70, 90)
-        self.walking_frames_r.append(image)
-
-        # loading all the images in the list facing left
-        image = self.spritesheet.get_image(0, 0, 66, 90)
-        # True makes it flip horizontally
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(66, 0, 66, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(132, 0, 67, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(0, 93, 66, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(66, 93, 66, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(132, 93, 72, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = self.spritesheet.get_image(0, 186, 70, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
+        # putting all walking images into a list
+        walkingimages = [self.spritesheet.get_image(0, 0, 66, 90),
+                         self.spritesheet.get_image(66, 0, 66, 90),
+                         self.spritesheet.get_image(132, 0, 67, 90),
+                         self.spritesheet.get_image(0, 93, 66, 90),
+                         self.spritesheet.get_image(66, 93, 66, 90),
+                         self.spritesheet.get_image(132, 93, 72, 90),
+                         self.spritesheet.get_image(0, 186, 70, 90)
+                        ]
+        # create walking frames facing right
+        for frame in walkingimages:
+            self.walking_frames_r.append(frame)
+        # create walking frames facing left
+        for frame in self.walking_frames_r:
+            self.walking_frames_l.append(pygame.transform.flip(frame, True, False))
 
         #player starts with the first walking frame that faces right
         self.image = self.walking_frames_r[0]
@@ -82,10 +65,10 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.acceleration = vector2(0, playerGravity)
         key = pygame.key.get_pressed()
-        if key[pygame.K_LEFT]:
+        if key[pygame.K_LEFT] or key[pygame.K_a]:
             self.walkingLeftanimation()
             self.acceleration.x = -playerAcceleration
-        if key[pygame.K_RIGHT]:
+        if key[pygame.K_RIGHT] or key[pygame.K_d]:
             self.walkingRightanimation()
             self.acceleration.x = playerAcceleration
         if key[pygame.K_SPACE]:

@@ -1,8 +1,6 @@
 #!/usr/bin/python
 
-import random
 import os
-from Settings import *
 from MainMenu import *
 from Platform import *
 from HighScores import *
@@ -64,9 +62,15 @@ class Game:
         if self.player.velocity.y > 0:
             player_collision = pygame.sprite.spritecollide(self.player, self.platforms, False)
             if player_collision:
+                lowest = player_collision[0]
+                for hit in player_collision:
+                    if hit.rect.bottom > lowest.rect.bottom:
+                        lowest = hit
                 # if the player comes in contact with platform, put him at the top of the platform hitbox
-                self.player.position.y = player_collision[0].rect.top
-                self.player.velocity.y = 0
+                if self.player.position.y < lowest.rect.centery:
+                    self.player.position.y = lowest.rect.top
+                    self.player.velocity.y = 0
+                    self.player.jumping = False
         # if player reaches top of the screen move the camera
         if self.player.rect.top <= display_height / 4:
             self.player.position.y += max(abs(self.player.velocity.y), 2)
@@ -75,7 +79,7 @@ class Game:
                 plat.rect.y += max(abs(self.player.velocity.y), 2)
                 if plat.rect.top >= display_height:
                     plat.kill()
-                    self.highscore.score += 0.1
+                    self.highscore.score += 10
         # player death
         if self.player.rect.bottom > display_height:
             for sprite in self.all_sprites:
@@ -89,7 +93,7 @@ class Game:
         while len(self.platforms) < 10:
             width = random.randrange(100, 200)
             p = Platform(self, random.randrange(0, display_width - width),
-                         random.randrange(-75, -30))
+                         random.randrange(10, 30))
             self.platforms.add(p)
             self.all_sprites.add(p)
         '''
@@ -98,6 +102,9 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    self.player.jumpfall()
 
     def draw(self):
         screen.fill(teal)
