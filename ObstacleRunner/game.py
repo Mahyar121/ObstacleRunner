@@ -5,7 +5,8 @@ from MainMenu import *
 from Platform import *
 from HighScores import *
 from Spritesheet import *
-import random
+from Enemy import *
+
 
 class Game:
     def __init__(self):
@@ -20,27 +21,24 @@ class Game:
             empty_score_file = open(self.fileName, "w")
             empty_score_file.write("[]")
             empty_score_file.close()
-        self.all_sprites = pygame.sprite.Group()
-        self.platforms = pygame.sprite.Group()
-        from Player import Player
-        self.player = Player(self)
         self.running = True
         self.playerDead = False
         self.highscore = HighScores()
         self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
-        self.coin = pygame.sprite.Group()
+        self.enemiesSpriteSheet = Spritesheet(enemyspritesheetFile)
 
 
     def new(self):
         # start a new game, reset everything
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.LayeredUpdates()
         self.platforms = pygame.sprite.Group()
+        self.coin = pygame.sprite.Group()
+        self.enemyFly = pygame.sprite.Group()
+        self.EnemyFlyTimer = 0
         from Player import Player
         self.player = Player(self)
         self.highscore = HighScores()
         self.playerDead = False
-        self.coin = pygame.sprite.Group()
-        self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
         # creates a platform
         for platform in PLATFORM_LIST:
             Platform(self, *platform)
@@ -58,6 +56,17 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
+
+        #spawn EnemyFly
+        now = pygame.time.get_ticks()
+        if now - self.EnemyFlyTimer > ENEMYFLY_SPAWN_RATE + choice([-1000, -500, 0, 500, 1000]):
+            self.EnemyFlyTimer = now
+            EnemyFly(self)
+        # check if hits enemyfly
+        enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
+        if enemyfly_hits:
+            self.playerDead = True
+        # checks if a player hits a platform
         if self.player.velocity.y > 0:
             player_collision = pygame.sprite.spritecollide(self.player, self.platforms, False)
             if player_collision:
@@ -75,6 +84,9 @@ class Game:
         # if player reaches top of the screen move the camera
         if self.player.rect.top <= display_height / 4:
             self.player.position.y += max(abs(self.player.velocity.y), 2)
+            # move EnemyFly down based on player speed
+            for enemyfly in self.enemyFly:
+                enemyfly.rect.y += max(abs(self.player.velocity.y), 2)
             # move platforms down based on player speed
             for plat in self.platforms:
                 plat.rect.y += max(abs(self.player.velocity.y), 2)
@@ -116,7 +128,6 @@ class Game:
     def draw(self):
         screen.fill(teal)
         self.all_sprites.draw(screen)
-        screen.blit(self.player.image, self.player.rect)
         screen.blit(self.font.render("Score: {}".format(self.highscore.score), -1, white), (500, 10))
         if self.playerDead:
             highscore = 1

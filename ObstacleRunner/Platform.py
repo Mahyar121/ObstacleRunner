@@ -11,6 +11,7 @@ PLATFORM_LIST = [
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, game, x , y,):
+        self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game

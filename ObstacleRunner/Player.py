@@ -4,6 +4,7 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game):
+        self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -19,6 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity = vector2(0, 0)
         self.acceleration = vector2(0, 0)
         self.jumping = False
+
 
 
 
@@ -53,10 +55,8 @@ class Player(pygame.sprite.Sprite):
         # create walking frames facing left
         for frame in self.walking_frames_r:
             self.walking_frames_l.append(pygame.transform.flip(frame, True, False))
-
         #player starts with the first walking frame that faces right
         self.image = self.walking_frames_r[0]
-
         # setting a reference for the rect
         self.rect = self.image.get_rect()
 
@@ -98,6 +98,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.walking_frames_l[self.current_frame]
             self.rect = self.image.get_rect()
             self.rect.bottom = bottom
+        self.mask = pygame.mask.from_surface(self.image)
 
     def walkingRightanimation(self):
         now = pygame.time.get_ticks()
@@ -108,6 +109,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.walking_frames_r[self.current_frame]
             self.rect = self.image.get_rect()
             self.rect.bottom = bottom
+        self.mask = pygame.mask.from_surface(self.image)
 
 
 

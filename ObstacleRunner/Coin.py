@@ -4,6 +4,7 @@ from random import choice
 
 class Coin(pygame.sprite.Sprite):
     def __init__(self, game, plat):
+        self._layer = COIN_LAYER
         self.groups = game.all_sprites, game.coin
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game

@@ -11,6 +11,7 @@ FONTNAME = "AntsyPants.ttf"
 spritesheetPlatformFile = "spritesheet_platforms.png"
 playerspritesheetFile = "p1_walk.png"
 coinsspritesheetFile = "coins.png"
+enemyspritesheetFile = "spritesheet_platforms.png"
 # global vector
 vector2 = pygame.math.Vector2
 
@@ -23,6 +24,12 @@ playerJump = 20
 # Game Properties
 COIN_VALUE = 50
 COIN_SPAWN_RATE = 7
+ENEMYFLY_SPAWN_RATE = 5000
+ENEMYFLY_SPEED = 4
+PLAYER_LAYER = 2
+PLATFORM_LAYER = 1
+COIN_LAYER = 1
+ENEMY_LAYER = 2
 
 # colors
 white = (255, 255, 255)
