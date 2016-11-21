@@ -7,7 +7,7 @@ Player Sprite
 http://programarcadegames.com/python_examples/en/sprite_sheets/
 
 Platform Sprites
-http://programarcadegames.com/python_examples/en/sprite_sheets/
+http://opengameart.org/content/jumper-pack
 
 Enemy Sprites
 http://opengameart.org/content/jumper-pack
