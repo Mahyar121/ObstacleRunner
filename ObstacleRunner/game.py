@@ -26,6 +26,9 @@ class Game:
         self.highscore = HighScores()
         self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
         self.enemiesSpriteSheet = Spritesheet(enemyspritesheetFile)
+        self.cloud_images = []
+        for cloud in range(1, 4):
+            self.cloud_images.append(pygame.image.load("cloud{}.png".format(cloud)).convert())
 
 
     def new(self):
@@ -34,6 +37,7 @@ class Game:
         self.platforms = pygame.sprite.Group()
         self.coin = pygame.sprite.Group()
         self.enemyFly = pygame.sprite.Group()
+        self.clouds = pygame.sprite.Group()
         self.EnemyFlyTimer = 0
         from Player import Player
         self.player = Player(self)
@@ -42,6 +46,10 @@ class Game:
         # creates a platform
         for platform in PLATFORM_LIST:
             Platform(self, *platform)
+        for i in range(8):
+            from Cloud import Cloud
+            cloud = Cloud(self)
+            cloud.rect.y += 500
         self.gameLoop()
 
     def gameLoop(self):
@@ -83,7 +91,15 @@ class Game:
                             self.player.jumping = False
         # if player reaches top of the screen move the camera
         if self.player.rect.top <= display_height / 4:
+            from random import randrange
+            if randrange(100) < 10:
+                from Cloud import Cloud
+                Cloud(self)
             self.player.position.y += max(abs(self.player.velocity.y), 2)
+            # move clouds down half of the player speed
+            for cloud in self.clouds:
+                cloudspeed = randrange(1, 3)
+                cloud.rect.y += max(abs(self.player.velocity.y / cloudspeed), 2)
             # move EnemyFly down based on player speed
             for enemyfly in self.enemyFly:
                 enemyfly.rect.y += max(abs(self.player.velocity.y), 2)

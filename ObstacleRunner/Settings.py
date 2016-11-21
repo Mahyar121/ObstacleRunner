@@ -12,6 +12,7 @@ spritesheetPlatformFile = "spritesheet_platforms.png"
 playerspritesheetFile = "p1_walk.png"
 coinsspritesheetFile = "coins.png"
 enemyspritesheetFile = "spritesheet_platforms.png"
+
 # global vector
 vector2 = pygame.math.Vector2
 
@@ -30,6 +31,7 @@ PLAYER_LAYER = 2
 PLATFORM_LAYER = 1
 COIN_LAYER = 1
 ENEMY_LAYER = 2
+CLOUD_LAYER = 0
 
 # colors
 white = (255, 255, 255)
