@@ -4,7 +4,8 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game):
-        pygame.sprite.Sprite.__init__(self)
+        self.groups = game.all_sprites
+        pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.spritesheet = Spritesheet(playerspritesheetFile)
         self.walking_frames_l = []

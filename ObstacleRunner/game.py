@@ -5,6 +5,7 @@ from MainMenu import *
 from Platform import *
 from HighScores import *
 from Spritesheet import *
+import random
 
 class Game:
     def __init__(self):
@@ -27,6 +28,7 @@ class Game:
         self.playerDead = False
         self.highscore = HighScores()
         self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
+        self.coin = pygame.sprite.Group()
 
 
     def new(self):
@@ -35,16 +37,13 @@ class Game:
         self.platforms = pygame.sprite.Group()
         from Player import Player
         self.player = Player(self)
-        self.all_sprites.add(self.player)
         self.highscore = HighScores()
         self.playerDead = False
+        self.coin = pygame.sprite.Group()
         self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
         # creates a platform
         for platform in PLATFORM_LIST:
-            plat = Platform(self, *platform)
-            self.all_sprites.add(plat)
-            self.platforms.add(plat)
-
+            Platform(self, *platform)
         self.gameLoop()
 
     def gameLoop(self):
@@ -66,11 +65,13 @@ class Game:
                 for hit in player_collision:
                     if hit.rect.bottom > lowest.rect.bottom:
                         lowest = hit
-                # if the player comes in contact with platform, put him at the top of the platform hitbox
-                if self.player.position.y < lowest.rect.centery:
-                    self.player.position.y = lowest.rect.top
-                    self.player.velocity.y = 0
-                    self.player.jumping = False
+                # make sure the player falls off if leaves past the right or left of platform
+                if self.player.position.x < lowest.rect.right + 10:
+                    if self.player.position.x > lowest.rect.left - 10:
+                        if self.player.position.y < lowest.rect.centery:
+                            self.player.position.y = lowest.rect.top
+                            self.player.velocity.y = 0
+                            self.player.jumping = False
         # if player reaches top of the screen move the camera
         if self.player.rect.top <= display_height / 4:
             self.player.position.y += max(abs(self.player.velocity.y), 2)
@@ -80,6 +81,13 @@ class Game:
                 if plat.rect.top >= display_height:
                     plat.kill()
                     self.highscore.score += 10
+        # if player hits coin
+        coin_hits = pygame.sprite.spritecollide(self.player, self.coin, True)
+        for chits in coin_hits:
+            if chits.type == "coin":
+                self.highscore.score += 100
+                chits.kill()
+
         # player death
         if self.player.rect.bottom > display_height:
             for sprite in self.all_sprites:
@@ -90,12 +98,11 @@ class Game:
 
         '''
         # spawn new platforms
-        while len(self.platforms) < 10:
-            width = random.randrange(100, 200)
-            p = Platform(self, random.randrange(0, display_width - width),
+        while len(self.platforms) < 5:
+            width = random.randrange(0, 500)
+            Platform(self, random.randrange(0, display_width - width),
                          random.randrange(10, 30))
-            self.platforms.add(p)
-            self.all_sprites.add(p)
+
         '''
     def events(self):
         for event in pygame.event.get():

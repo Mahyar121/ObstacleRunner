@@ -8,8 +8,9 @@ title = "Obstacle Runner"
 clock = pygame.time.Clock()
 FPS = 60
 FONTNAME = "AntsyPants.ttf"
-spritesheetPlatformFile = "tiles_spritesheet.png"
+spritesheetPlatformFile = "spritesheet_platforms.png"
 playerspritesheetFile = "p1_walk.png"
+coinsspritesheetFile = "coins.png"
 # global vector
 vector2 = pygame.math.Vector2
 
@@ -18,6 +19,10 @@ playerAcceleration = 0.5
 playerFriction = -0.12
 playerGravity = 0.8
 playerJump = 20
+
+# Game Properties
+COIN_VALUE = 50
+COIN_SPAWN_RATE = 7
 
 # colors
 white = (255, 255, 255)

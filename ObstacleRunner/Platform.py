@@ -1,35 +1,44 @@
 from Settings import *
 import pygame
-from random import choice
+from random import *
 
 PLATFORM_LIST = [
-    # row 1
-    (0, display_height- 70), (70, display_height - 70),(140, display_height - 70),
-    (730, display_height - 70), (660, display_height - 70), (590, display_height - 70),
-    # row 2
-    (30, display_height - 280), (100, display_height - 280), (170, display_height - 280),
-    # row 3
-    (60, display_height - 490), (130, display_height - 490), (200, display_height - 490),
-    # row 4
-    (100, display_height - 700), (170, display_height - 700), (210, display_height - 700),
-    # row 5
-    (150, display_height - 910), (220, display_height - 910), (290, display_height - 910),
-    # row 6
-    (300, display_height - 1130), (370, display_height - 1130), (440, display_height - 1130),
-
-
-
+    (0, display_height- 70), (500, display_height - 70),(100, display_height - 280),(300, display_height - 490),
+    (200, display_height - 700), (500, display_height - 910), (300, display_height - 1130),
+    (100, display_height - 1340), (400, display_height - 1550)
 ]
-
-
 
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, game, x , y,):
-        pygame.sprite.Sprite.__init__(self)
+        self.groups = game.all_sprites, game.platforms
+        pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = [self.game.platformSpriteSheet.get_image(504, 576, 70, 70)]
+        self.image = [self.game.platformSpriteSheet.get_image(0, 384, 380, 94)]
         self.image = choice(self.image)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        if randrange(20) < COIN_SPAWN_RATE:
+            Coin(self.game, self)
+
+
+class Coin(pygame.sprite.Sprite):
+    def __init__(self, game, plat):
+        self.groups = game.all_sprites, game.coin
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.plat = plat
+        self.type = choice(["coin"])
+        self.image = pygame.image.load("coin.png").convert()
+        self.image.set_colorkey(black)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = self.plat.rect.centerx
+        self.rect.bottom = self.plat.rect.top - 5
+
+    def update(self):
+        self.rect.bottom = self.plat.rect.top - 5
+        if not self.game.platforms.has(self.plat):
+            self.kill()
+
+
