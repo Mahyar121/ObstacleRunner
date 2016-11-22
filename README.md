@@ -13,4 +13,4 @@ Enemy Sprites
 http://opengameart.org/content/jumper-pack
 
 Coin Sprite
-http://opengameart.org/content/spinning-coin
+http://opengameart.org/content/jumper-pack
