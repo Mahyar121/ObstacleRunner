@@ -1,7 +1,6 @@
 from Settings import *
 import pygame
 from random import *
-from abc import ABCMeta
 
 # X and Y coordinates to spawn grass platforms
 GRASS_BIG_PLATFORM_LIST = [(-70, 530), (500, 530), (100, 300), (100, -500), (100, -900)]
