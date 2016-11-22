@@ -91,6 +91,7 @@ class ControlsPage:
                     quit()
             # fills screen
             screen.fill(teal)
+            screen.blit(pygame.font.Font(FONTNAME, 50).render(title, -1, black), (153, 17))
             textSurface, textRectange = Buttons().text_objects(title, self.bigText)
             textRectange.center = ((display_width / 2), (display_height / 15))
             screen.blit(textSurface, textRectange)

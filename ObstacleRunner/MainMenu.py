@@ -72,9 +72,11 @@ class MainMenu:
                     pygame.quit()
                     quit()
 
-            # black screen
+            # background screen color
             screen.fill(teal)
-            textSurface, textRectange = Buttons().text_objects(title , self.bigMainText)
+            bigText = pygame.font.Font(FONTNAME, 60)
+            screen.blit(pygame.font.Font(FONTNAME, 60).render(title, -1, black), (108, 12))
+            textSurface, textRectange = Buttons().text_objects(title, bigText)
             textRectange.center = ((display_width / 2), (display_height / 15))
             screen.blit(textSurface, textRectange)
             # shows the buttons on the game menu screen

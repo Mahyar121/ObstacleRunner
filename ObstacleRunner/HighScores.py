@@ -37,6 +37,7 @@ class HighScores:
                     scoresCount += 1
 
             bigText = pygame.font.Font(self.fontName, 60)
+            screen.blit(pygame.font.Font(FONTNAME, 60).render(title, -1, black), (107, 13))
             textSurface, textRectange = Buttons().text_objects(title, bigText)
             textRectange.center = ((display_width / 2), (display_height / 15))
             screen.blit(textSurface, textRectange)
@@ -44,7 +45,7 @@ class HighScores:
             line = "_____________________________________________________________________"
             screen.blit(pygame.font.Font(self.fontName, 50).render(line, -1, white), (0, 81))
             screen.blit(pygame.font.Font(self.fontName, 50).render(line, -1, red), (0, 80))
-            screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, white), (272, 71))
+            screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, white), (272, 73))
             screen.blit(pygame.font.Font(self.fontName, 50).render("High Scores", -1, red),(270, 70))
 
             mouse = pygame.mouse.get_pos()

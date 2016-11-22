@@ -14,7 +14,7 @@ class EnemyFly(pygame.sprite.Sprite):
         self.imageflydown = pygame.transform.scale(self.imageflydown, (70, 70))
         self.image = self.imageflyup
         self.rect = self.image.get_rect()
-        self.rect.centerx = choice([-100, display_width + 100])
+        self.rect.centerx = choice([-150, display_width + 150])
         self.velocityX = randrange(1,4)
         if self.rect.centerx > display_width:
             self.velocityX *= -1
@@ -40,5 +40,5 @@ class EnemyFly(pygame.sprite.Sprite):
         self.rect.center = center
         self.rect.y += self.velocityY
         # if he flies off screen then dies
-        if self.rect.left > display_width + 100 or self.rect.right < -100:
+        if self.rect.left > display_width + 150 or self.rect.right < -150:
             self.kill()

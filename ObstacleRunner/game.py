@@ -26,6 +26,7 @@ class Game:
         self.highscore = HighScores()
         self.platformSpriteSheet = Spritesheet(spritesheetPlatformFile)
         self.enemiesSpriteSheet = Spritesheet(enemyspritesheetFile)
+        self.coinSpriteSheet = Spritesheet(spritesheetPlatformFile)
         self.cloud_images = []
         for cloud in range(1, 4):
             self.cloud_images.append(pygame.image.load("cloud{}.png".format(cloud)).convert())
@@ -43,9 +44,31 @@ class Game:
         self.player = Player(self)
         self.highscore = HighScores()
         self.playerDead = False
-        # creates a platform
-        for platform in PLATFORM_LIST:
-            Platform(self, *platform)
+        # creates the big grass platform
+        for grassbigplatform in GRASS_BIG_PLATFORM_LIST:
+            GrassBigPlatform(self, *grassbigplatform)
+        # creates the small grass platform
+        for grasssmallplatform in GRASS_SMALL_PLATFORM_LIST:
+            GrassSmallPlatform(self, *grasssmallplatform)
+        # creates the big brown cake platform
+        for bcakebigplatform in BCAKE_BIG_PLATFORM_LIST:
+            BCakeBigPlatform(self, *bcakebigplatform)
+        # creates the small brown cake platform
+        for bcakesmallplatform in BCAKE_SMALL_PLATFORM_LIST:
+            BCakeSmallPlatform(self, *bcakesmallplatform)
+        # creates the big sand platform
+        for sandbigplatform in SAND_BIG_PLATFORM_LIST:
+            SandBigPlatform(self, *sandbigplatform)
+        # creates the small sand platform
+        for sandsmallplatform in SAND_SMALL_PLATFORM_LIST:
+            SandSmallPlatform(self, *sandsmallplatform)
+        # creates the big snow platform
+        for snowbigplatform in SNOW_BIG_PLATFORM_LIST:
+            SnowBigPlatform(self, *snowbigplatform)
+        # creates the small snow platform
+        for snowsmallplatform in SNOW_SMALL_PLATFORM_LIST:
+            SnowSmallPlatform(self, *snowsmallplatform)
+        # creates clouds on the map
         for i in range(8):
             from Cloud import Cloud
             cloud = Cloud(self)
@@ -70,6 +93,7 @@ class Game:
         if now - self.EnemyFlyTimer > ENEMYFLY_SPAWN_RATE + choice([-1000, -500, 0, 500, 1000]):
             self.EnemyFlyTimer = now
             EnemyFly(self)
+
         # check if hits enemyfly
         enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
         if enemyfly_hits:
@@ -112,9 +136,12 @@ class Game:
         # if player hits coin
         coin_hits = pygame.sprite.spritecollide(self.player, self.coin, True)
         for chits in coin_hits:
-            if chits.type == "coin":
+            if chits.type == "goldcoin":
+                self.highscore.score += 300
+            if chits.type == "silvercoin":
+                self.highscore.score += 200
+            if chits.type == "bronzecoin":
                 self.highscore.score += 100
-                chits.kill()
 
         # player death
         if self.player.rect.bottom > display_height:
@@ -127,11 +154,12 @@ class Game:
         '''
         # spawn new platforms
         while len(self.platforms) < 5:
-            width = random.randrange(0, 500)
-            Platform(self, random.randrange(0, display_width - width),
-                         random.randrange(10, 30))
-
+            from random import randrange
+            width = randrange(0, 500)
+            GrassBigPlatform(self, randrange(0, display_width - width),randrange(10, 30))
+            GrassSmallPlatform(self, randrange(0, display_width - width), randrange(10, 30))
         '''
+
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -144,7 +172,9 @@ class Game:
     def draw(self):
         screen.fill(teal)
         self.all_sprites.draw(screen)
-        screen.blit(self.font.render("Score: {}".format(self.highscore.score), -1, white), (500, 10))
+        scoreFont = pygame.font.Font(FONTNAME, 30)
+        screen.blit(scoreFont.render("Score: {}".format(self.highscore.score), -1, black), (501, 11))
+        screen.blit(scoreFont.render("Score: {}".format(self.highscore.score), -1, white), (500, 10))
         if self.playerDead:
             highscore = 1
             screen.blit(pygame.font.Font(FONTNAME, 100).render("Game Over", -1, red), (100, 70))
