@@ -1,6 +1,7 @@
 from Settings import *
 import pygame
 from random import *
+from abc import ABCMeta
 
 # X and Y coordinates to spawn grass platforms
 GRASS_BIG_PLATFORM_LIST = [(-70, 530), (500, 530), (100, 300), (100, -500), (100, -900)]
@@ -17,11 +18,9 @@ SNOW_BIG_PLATFORM_LIST = [(-70, -4300), (500, -4300), (300, -5700), (0, -5900)]
 SNOW_SMALL_PLATFORM_LIST = [(100, -4500), (300, -4700), (0, -4900), (600, -5100), (0, -5300), (600, -5500),
                             (350, -6100)]
 
-# make abstract class for platforms
-
 
 class GrassBigPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -44,7 +43,7 @@ class GrassBigPlatform(pygame.sprite.Sprite):
 
 
 class GrassSmallPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -67,7 +66,7 @@ class GrassSmallPlatform(pygame.sprite.Sprite):
 
 
 class BCakeBigPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -89,7 +88,7 @@ class BCakeBigPlatform(pygame.sprite.Sprite):
             BronzeCoin(self.game, self)
 
 class BCakeSmallPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -112,7 +111,7 @@ class BCakeSmallPlatform(pygame.sprite.Sprite):
 
 
 class SandBigPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -135,7 +134,7 @@ class SandBigPlatform(pygame.sprite.Sprite):
 
 
 class SandSmallPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -158,7 +157,7 @@ class SandSmallPlatform(pygame.sprite.Sprite):
 
 
 class SnowBigPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -180,7 +179,7 @@ class SnowBigPlatform(pygame.sprite.Sprite):
             BronzeCoin(self.game, self)
 
 class SnowSmallPlatform(pygame.sprite.Sprite):
-    def __init__(self, game, x , y,):
+    def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
