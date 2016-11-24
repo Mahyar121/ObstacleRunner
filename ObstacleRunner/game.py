@@ -68,6 +68,12 @@ class Game:
         # creates the small snow platform
         for snowsmallplatform in SNOW_SMALL_PLATFORM_LIST:
             SnowSmallPlatform(self, *snowsmallplatform)
+        # creates the big stone platform
+        for stonebigplatform in STONE_BIG_PLATFORM_LIST:
+            StoneBigPlatform(self, *stonebigplatform)
+        #creates the small stone platform
+        for stonesmallplatform in STONE_SMALL_PLATFORM_LIST:
+            StoneSmallPlatform(self, *stonesmallplatform)
         # creates clouds on the map
         for i in range(8):
             from Cloud import Cloud
