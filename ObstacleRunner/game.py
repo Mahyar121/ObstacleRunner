@@ -7,7 +7,7 @@ from HighScores import *
 from Spritesheet import *
 from Enemy import *
 
-
+# class were the game will be loaded from
 class Game:
     def __init__(self):
         pygame.init()
@@ -31,7 +31,7 @@ class Game:
         for cloud in range(1, 4):
             self.cloud_images.append(pygame.image.load("cloud{}.png".format(cloud)).convert())
 
-
+# used to refresh the games settings for when the player plays again
     def new(self):
         # start a new game, reset everything
         self.all_sprites = pygame.sprite.LayeredUpdates()
@@ -80,7 +80,7 @@ class Game:
             cloud = Cloud(self)
             cloud.rect.y += 500
         self.gameLoop()
-
+    # runs the game
     def gameLoop(self):
         self.running = True
         while self.running:
@@ -91,6 +91,7 @@ class Game:
             pygame.display.update()
         pygame.quit()
 
+    # updates the game actions
     def update(self):
         self.all_sprites.update()
 
@@ -157,24 +158,18 @@ class Game:
                     sprite.kill()
                     self.playerDead = True
 
-        '''
-        # spawn new platforms
-        while len(self.platforms) < 5:
-            from random import randrange
-            width = randrange(0, 500)
-            GrassBigPlatform(self, randrange(0, display_width - width),randrange(10, 30))
-            GrassSmallPlatform(self, randrange(0, display_width - width), randrange(10, 30))
-        '''
-
     def events(self):
+        # if player clicks on X quit the game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            # after the play presses the jump button, they will fall down at a realistic speed
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     self.player.jumpfall()
 
+    # displays the images on the screen
     def draw(self):
         screen.fill(teal)
         self.all_sprites.draw(screen)
@@ -186,8 +181,11 @@ class Game:
             screen.blit(pygame.font.Font(FONTNAME, 100).render("Game Over", -1, red), (100, 70))
             if highscore == 1:
                 screen.blit(
-                    pygame.font.Font(FONTNAME, 30).render("Enter your name for the HighScore List", -1,
-                                                          white), (10, 450))
+                    pygame.font.Font(FONTNAME, 33).render("Enter your name for the HighScore List", -1,
+                                                          black), (10, 450))
+                screen.blit(
+                    pygame.font.Font(FONTNAME, 33).render("Enter your name for the HighScore List", -1,
+                                                          white), (11, 452))
                 self.highscore.getUserName(self.highscore.score)
                 self.highscore.addHighScores(self.highscore.score)
                 highscore = 0

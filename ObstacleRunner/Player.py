@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
                 self.velocity.y = -2
 
     def load_images(self):
-
+        '''
         # putting all walking images into a list
         walkingimages = [self.spritesheet.get_image(0, 0, 66, 90),
                          self.spritesheet.get_image(66, 0, 66, 90),
@@ -49,14 +49,24 @@ class Player(pygame.sprite.Sprite):
                          self.spritesheet.get_image(132, 93, 72, 90),
                          self.spritesheet.get_image(0, 186, 70, 90)
                         ]
+        '''
+        walktest = [self.spritesheet.get_image(16, 32, 16, 16),
+                    self.spritesheet.get_image(32, 30, 16, 16),
+                    self.spritesheet.get_image(48, 32, 16, 16),
+                    self.spritesheet.get_image(64, 32, 16, 16),
+                    self.spritesheet.get_image(80, 30, 16, 16)]
         # create walking frames facing right
-        for frame in walkingimages:
+        for frame in walktest:
             self.walking_frames_r.append(frame)
         # create walking frames facing left
         for frame in self.walking_frames_r:
             self.walking_frames_l.append(pygame.transform.flip(frame, True, False))
         #player starts with the first walking frame that faces right
+
         self.image = self.walking_frames_r[0]
+
+        self.image = pygame.transform.scale(self.image, (90, 90))
+        self.image.set_colorkey(graypink)
         # setting a reference for the rect
         self.rect = self.image.get_rect()
 
@@ -96,6 +106,8 @@ class Player(pygame.sprite.Sprite):
             self.current_frame = (self.current_frame + 1) % len(self.walking_frames_l)
             bottom = self.rect.bottom
             self.image = self.walking_frames_l[self.current_frame]
+            self.image = pygame.transform.scale(self.image, (90, 90))
+            self.image.set_colorkey(graypink)
             self.rect = self.image.get_rect()
             self.rect.bottom = bottom
         self.mask = pygame.mask.from_surface(self.image)
@@ -107,6 +119,8 @@ class Player(pygame.sprite.Sprite):
             self.current_frame = (self.current_frame + 1) % len(self.walking_frames_r)
             bottom = self.rect.bottom
             self.image = self.walking_frames_r[self.current_frame]
+            self.image = pygame.transform.scale(self.image, (90, 90))
+            self.image.set_colorkey(graypink)
             self.rect = self.image.get_rect()
             self.rect.bottom = bottom
         self.mask = pygame.mask.from_surface(self.image)

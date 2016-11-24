@@ -8,8 +8,11 @@ title = "Obstacle Runner"
 clock = pygame.time.Clock()
 FPS = 60
 FONTNAME = "AntsyPants.ttf"
+
+# spritesheet files
 spritesheetPlatformFile = "spritesheet_platforms.png"
-playerspritesheetFile = "p1_walk.png"
+# playerspritesheetFile = "p1_walk.png"
+playerspritesheetFile = "Blocky.png"
 coinsspritesheetFile = "coins.png"
 enemyspritesheetFile = "spritesheet_platforms.png"
 
@@ -48,3 +51,4 @@ black = (0, 0, 0)
 orange = (255, 125, 0)
 brightOrange = (255, 190, 0)
 lightPurple = (216, 191, 216)
+graypink = (157, 142, 135)

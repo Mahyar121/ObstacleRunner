@@ -2,9 +2,8 @@ from Settings import *
 import pygame
 from pygame.locals import *
 
+
 # will handle spritesheet
-
-
 class Spritesheet(object):
     def __init__(self, filename):
         self.spritesheet = pygame.image.load(filename).convert()

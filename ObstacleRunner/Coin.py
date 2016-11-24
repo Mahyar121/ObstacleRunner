@@ -2,6 +2,7 @@ from Settings import *
 from random import choice
 
 
+# displays gold coins on the screen
 class GoldCoin(pygame.sprite.Sprite):
     def __init__(self, game, plat):
         self._layer = COIN_LAYER
@@ -17,11 +18,14 @@ class GoldCoin(pygame.sprite.Sprite):
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 1
 
+    # updates the gold coin
     def update(self):
         self.rect.bottom = self.plat.rect.top - 1
         if not self.game.platforms.has(self.plat):
             self.kill()
 
+
+# displays the silver coins on the screen
 class SilverCoin(pygame.sprite.Sprite):
     def __init__(self, game, plat):
         self._layer = COIN_LAYER
@@ -36,13 +40,14 @@ class SilverCoin(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 1
-
+    # updates the silver coin
     def update(self):
         self.rect.bottom = self.plat.rect.top - 1
         if not self.game.platforms.has(self.plat):
             self.kill()
 
 
+# displays the bronze coins on the screen
 class BronzeCoin(pygame.sprite.Sprite):
     def __init__(self, game, plat):
         self._layer = COIN_LAYER
@@ -57,7 +62,7 @@ class BronzeCoin(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 1
-
+    # updates the bronze coin
     def update(self):
         self.rect.bottom = self.plat.rect.top - 1
         if not self.game.platforms.has(self.plat):

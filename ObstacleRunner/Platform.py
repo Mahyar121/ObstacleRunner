@@ -20,6 +20,7 @@ SNOW_SMALL_PLATFORM_LIST = [(100, -4500), (300, -4700), (0, -4900), (600, -5100)
 STONE_BIG_PLATFORM_LIST = [(-70, -6700), (500, -6700), (50, -8100), (300, -8300)]
 STONE_SMALL_PLATFORM_LIST = [(100, -6900), (300, -7100), (500, -7300), (600, -7500), (0, -7700), (600, -7900)]
 
+
 class GrassBigPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER

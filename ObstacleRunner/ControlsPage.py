@@ -7,7 +7,6 @@ class ControlsPage:
         self.bigText = pygame.font.Font(FONTNAME, 50)
 
     def controlButtons(self):
-
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         # quit button

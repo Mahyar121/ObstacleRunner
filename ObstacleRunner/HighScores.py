@@ -4,14 +4,15 @@ from Buttons import *
 import json
 
 
+# handles the high scores
 class HighScores:
-
     def __init__(self):
         self.fileName = "HighScore.json"
         self.userName = ""
         self.highScoreList = []
         self.fontName = FONTNAME
         self.score = 0
+        self.namebackground = ""
 
     def highScoresPage(self):
         padding_y = 0
@@ -106,20 +107,24 @@ class HighScores:
 
     def getUserName(self, score):
         self.score = score
+
         loop = True
         while loop:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.unicode.isalpha():
                         self.userName += event.unicode
+                        self.namebackground += event.unicode
                     if event.key == K_BACKSPACE:
                         self.userName = self.userName[:-1]
+                        self.namebackground = self.namebackground[:-1]
                     if event.key == K_RETURN:
                         self.addHighScores(self.score)
                         loop = False
                 elif event.type == QUIT:
                     pygame.quit()
                     quit()
-            screen.blit(pygame.font.Font(self.fontName, 50).render(self.userName, -1, white), (100, 500))
+            screen.blit(pygame.font.Font(self.fontName, 50).render(self.userName, -1, black), (100, 500))
+            screen.blit(pygame.font.Font(self.fontName, 50).render(self.namebackground, -1, white), (101, 502))
             pygame.display.update()
 

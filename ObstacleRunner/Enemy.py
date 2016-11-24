@@ -2,6 +2,7 @@ from Settings import *
 from random import choice, randrange
 
 
+# creates an enemy fly
 class EnemyFly(pygame.sprite.Sprite):
     def __init__(self, game):
         self._layer = ENEMY_LAYER
@@ -22,6 +23,7 @@ class EnemyFly(pygame.sprite.Sprite):
         self.velocityY = 0
         self.directionY = 0.5
 
+    # handles the movement of the fly
     def update(self):
         self.rect.x += self.velocityX
         self.velocityY += self.directionY

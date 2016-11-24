@@ -2,6 +2,7 @@ from Settings import *
 from random import choice, randrange
 
 
+# class that is in charge of putting clouds on the screen
 class Cloud(pygame.sprite.Sprite):
     def __init__(self, game):
         self._layer = CLOUD_LAYER
