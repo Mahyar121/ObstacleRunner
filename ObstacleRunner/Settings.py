@@ -12,7 +12,7 @@ FONTNAME = "AntsyPants.ttf"
 # spritesheet files
 spritesheetPlatformFile = "spritesheet_platforms.png"
 # playerspritesheetFile = "p1_walk.png"
-playerspritesheetFile = "Blocky.png"
+playerspritesheetFile = "Old hero.png"
 coinsspritesheetFile = "coins.png"
 enemyspritesheetFile = "spritesheet_platforms.png"
 

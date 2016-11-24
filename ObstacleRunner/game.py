@@ -169,6 +169,8 @@ class Game:
                 if event.key == pygame.K_SPACE:
                     self.player.jumpfall()
 
+
+
     # displays the images on the screen
     def draw(self):
         screen.fill(teal)

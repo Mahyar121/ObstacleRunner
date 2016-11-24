@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.spritesheet = Spritesheet(playerspritesheetFile)
+        self.standing_frames = []
         self.walking_frames_l = []
         self.walking_frames_r = []
         self.current_frame = 0
@@ -50,11 +51,21 @@ class Player(pygame.sprite.Sprite):
                          self.spritesheet.get_image(0, 186, 70, 90)
                         ]
         '''
+        self.standing_frames = [
+            self.spritesheet.get_image(16, 16, 16, 16),
+            self.spritesheet.get_image(32, 16, 16, 16),
+            self.spritesheet.get_image(48, 16, 16, 16),
+            self.spritesheet.get_image(64, 16, 16, 16)]
+
         walktest = [self.spritesheet.get_image(16, 32, 16, 16),
-                    self.spritesheet.get_image(32, 30, 16, 16),
+                    self.spritesheet.get_image(32, 32, 16, 16),
                     self.spritesheet.get_image(48, 32, 16, 16),
                     self.spritesheet.get_image(64, 32, 16, 16),
-                    self.spritesheet.get_image(80, 30, 16, 16)]
+                    self.spritesheet.get_image(80, 32, 16, 16),
+                    self.spritesheet.get_image(96, 32, 16, 16),
+                    ]
+        for stand in self.standing_frames:
+            stand.set_colorkey(graypink)
         # create walking frames facing right
         for frame in walktest:
             self.walking_frames_r.append(frame)
@@ -84,6 +95,10 @@ class Player(pygame.sprite.Sprite):
             self.acceleration.x = playerAcceleration
         if key[pygame.K_SPACE]:
             self.jump()
+
+        # calls the standing animation
+        if self.velocity.x <= 0:
+            self.standingAnimation()
 
         # equation for friction to slow player down on X direction
         self.acceleration.x += self.velocity.x * playerFriction
@@ -125,5 +140,17 @@ class Player(pygame.sprite.Sprite):
             self.rect.bottom = bottom
         self.mask = pygame.mask.from_surface(self.image)
 
+    def standingAnimation(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > 350:
+            self.last_update = now
+            self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
+            bottom = self.rect.bottom
+            self.image = self.standing_frames[self.current_frame]
+            self.image = pygame.transform.scale(self.image, (90, 90))
+            self.image.set_colorkey(graypink)
+            self.rect = self.image.get_rect()
+            self.rect.bottom = bottom
+        self.mask = pygame.mask.from_surface(self.image)
 
 
