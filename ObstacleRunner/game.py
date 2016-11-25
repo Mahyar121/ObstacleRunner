@@ -39,6 +39,7 @@ class Game:
         self.coin = pygame.sprite.Group()
         self.enemyFly = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
+        self.spikeenemy = pygame.sprite.Group()
         self.EnemyFlyTimer = 0
         from Player import Player
         self.player = Player(self)
@@ -100,6 +101,23 @@ class Game:
         if now - self.EnemyFlyTimer > ENEMYFLY_SPAWN_RATE + choice([-1000, -500, 0, 500, 1000]):
             self.EnemyFlyTimer = now
             EnemyFly(self)
+
+        # template for killing enemies
+        # enemyspike
+        enemyspike_hits = pygame.sprite.spritecollide(self.player, self.spikeenemy, False, pygame.sprite.collide_mask)
+        for spike in self.spikeenemy:
+            if self.player.punching or self.player.kicking:
+                if self.player.right:
+                    if enemyspike_hits and spike.rect.x >= self.player.rect.x and spike.rect.y >= self.player.rect.y:
+                        spike.kill()
+                        self.highscore.score += 100
+                if self.player.left:
+                    if enemyspike_hits and spike.rect.x <= self.player.rect.x and spike.rect.y >= self.player.rect.y:
+                        spike.kill()
+                        self.highscore.score += 100
+            elif enemyspike_hits:
+                self.playerDead = True
+
 
         # check if hits enemyfly
         enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
@@ -168,6 +186,7 @@ class Game:
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     self.player.jumpfall()
+
 
 
 

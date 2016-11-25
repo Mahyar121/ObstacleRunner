@@ -15,10 +15,8 @@ class EnemyFly(pygame.sprite.Sprite):
         self.imageflydown = pygame.transform.scale(self.imageflydown, (70, 70))
         self.image = self.imageflyup
         self.rect = self.image.get_rect()
-        self.rect.centerx = choice([-150, display_width + 150])
-        self.velocityX = randrange(1,4)
-        if self.rect.centerx > display_width:
-            self.velocityX *= -1
+        self.rect.centerx = 30
+        self.velocityX = randrange(1, ENEMYFLY_SPEED)
         self.rect.y = randrange(display_height / 2)
         self.velocityY = 0
         self.directionY = 0.5
@@ -42,5 +40,55 @@ class EnemyFly(pygame.sprite.Sprite):
         self.rect.center = center
         self.rect.y += self.velocityY
         # if he flies off screen then dies
-        if self.rect.left > display_width + 150 or self.rect.right < -150:
+        if self.rect.left > display_width + 20 or self.rect.right < -20:
             self.kill()
+
+class SpikeEnemy(pygame.sprite.Sprite):
+    def __init__(self, game, plat):
+        self._layer = ENEMY_LAYER
+        self.groups = game.all_sprites, game.spikeenemy
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.plat = plat
+        self.walking_l = []
+        self.walking_r = [
+            self.game.enemiesSpriteSheet.get_image(814, 1417, 90, 155),
+            self.game.enemiesSpriteSheet.get_image(704, 1256, 120, 159),
+            self.game.enemiesSpriteSheet.get_image(812, 296, 90, 155)
+        ]
+
+        for frames in self.walking_r:
+            frames = pygame.transform.scale(frames, (50, 70))
+            self.walking_l.append(pygame.transform.flip(frames, True, False))
+
+        self.image = self.walking_r[0]
+        self.image = pygame.transform.scale(self.image, (50, 70))
+        self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect.centerx = self.plat.rect.centerx
+        self.velocityX = ENEMYSPIKE_SPEED
+        self.direction = 1
+        self.last_update = 0
+        self.current_frame = 0
+
+    def update(self):
+        self.rect.bottom = self.plat.rect.top - 2
+
+        # if the mobs x is greater than the edge flip
+        if self.rect.x > self.plat.rect.right - 60:
+            self.direction = -1
+        # if the mobs x is less than the edge flip
+        if self.rect.x < self.plat.rect.left + 20:
+            self.direction = 1
+
+        self.rect.x += self.velocityX * self.direction
+
+        # if platform gone then kill the mob
+        if not self.game.platforms.has(self.plat):
+            self.kill()
+
+
+
+
+
+
