@@ -40,6 +40,9 @@ class Game:
         self.enemyFly = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
         self.spikeenemy = pygame.sprite.Group()
+        self.brownmob = pygame.sprite.Group()
+        self.skullmob = pygame.sprite.Group()
+        self.digletmob = pygame.sprite.Group()
         self.EnemyFlyTimer = 0
         from Player import Player
         self.player = Player(self)
@@ -122,7 +125,7 @@ class Game:
         # check if hits enemyfly
         enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
         if enemyfly_hits:
-            self.playerDead = True
+           self.playerDead = True
         # checks if a player hits a platform
         if self.player.velocity.y > 0:
             player_collision = pygame.sprite.spritecollide(self.player, self.platforms, False)

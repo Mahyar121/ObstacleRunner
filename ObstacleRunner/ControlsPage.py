@@ -51,35 +51,28 @@ class ControlsPage:
         # Move Up
         Buttons().buttonBorder(orange, 75, 265, 290, 50)
         Buttons().buttonBorder(red, 80, 270, 280, 40)
-        Buttons().textButton("Move Up:", 80, 270, 280, 40)
+        Buttons().textButton("Jump:", 80, 270, 280, 40)
         # up arrow
         Buttons().buttonBorder(orange, 475, 265, 310, 50)
         Buttons().buttonBorder(red, 480, 270, 300, 40)
-        Buttons().textButton("Up Arrow or W", 480, 270, 300, 40)
+        Buttons().textButton("SpaceBar", 480, 270, 300, 40)
         # Move Down
         Buttons().buttonBorder(orange, 75, 335, 290, 50)
         Buttons().buttonBorder(red, 80, 340, 280, 40)
-        Buttons().textButton("Move Down:", 80, 340, 280, 40)
+        Buttons().textButton("Punch:", 80, 340, 280, 40)
         # down arrow
         Buttons().buttonBorder(orange, 475, 335, 310, 50)
         Buttons().buttonBorder(red, 480, 340, 300, 40)
-        Buttons().textButton("Down Arrow or S", 480, 340, 300, 40)
+        Buttons().textButton("F", 480, 340, 300, 40)
         # Shoot
         Buttons().buttonBorder(orange, 75, 405, 290, 50)
         Buttons().buttonBorder(red, 80, 410, 280, 40)
-        Buttons().textButton("Shoot:", 80, 410, 280, 40)
+        Buttons().textButton("Kick:", 80, 410, 280, 40)
         # Space Bar
         Buttons().buttonBorder(orange, 475, 405, 310, 50)
         Buttons().buttonBorder(red, 480, 410, 300, 40)
-        Buttons().textButton("SpaceBar", 480, 410, 300, 40)
-        # Bomb
-        Buttons().buttonBorder(orange, 75, 475, 290, 50)
-        Buttons().buttonBorder(red, 80, 480, 280, 40)
-        Buttons().textButton("Bomb:", 80, 480, 280, 40)
-        # B
-        Buttons().buttonBorder(orange, 475, 475, 310, 50)
-        Buttons().buttonBorder(red, 480, 480, 300, 40)
-        Buttons().textButton("B", 480, 480, 300, 40)
+        Buttons().textButton("G", 480, 410, 300, 40)
+
 
     def controlsPage(self):
         controls = True

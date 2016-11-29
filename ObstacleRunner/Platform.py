@@ -35,6 +35,7 @@ class GrassBigPlatform(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+
 class GrassSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self._layer = PLATFORM_LAYER
@@ -91,7 +92,7 @@ class SandBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
+        # mob of your choice
 
 class SandSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -119,7 +120,7 @@ class SnowBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
+        # mob of your choice thats diff
 
 class SnowSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -147,7 +148,7 @@ class StoneBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
+        # mob of your choice thats diff
 
 class StoneSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):

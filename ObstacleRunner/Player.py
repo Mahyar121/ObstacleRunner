@@ -189,7 +189,7 @@ class Player(pygame.sprite.Sprite):
 
     def punchingRightAnimation(self):
         now = pygame.time.get_ticks()
-        if now - self.last_update > 100:
+        if now - self.last_update > 200:
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.punching_frames_r)
             bottom = self.rect.bottom
@@ -202,7 +202,7 @@ class Player(pygame.sprite.Sprite):
 
     def punchingLeftAnimation(self):
         now = pygame.time.get_ticks()
-        if now - self.last_update > 100:
+        if now - self.last_update > 200:
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.punching_frames_l)
             bottom = self.rect.bottom
@@ -215,7 +215,7 @@ class Player(pygame.sprite.Sprite):
 
     def kickingRightAnimation(self):
         now = pygame.time.get_ticks()
-        if now - self.last_update > 120:
+        if now - self.last_update > 200:
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.kicking_frames_r)
             bottom = self.rect.bottom
@@ -228,7 +228,7 @@ class Player(pygame.sprite.Sprite):
 
     def kickingLeftAnimation(self):
         now = pygame.time.get_ticks()
-        if now - self.last_update > 120:
+        if now - self.last_update > 200:
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.kicking_frames_l)
             bottom = self.rect.bottom
