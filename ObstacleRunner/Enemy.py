@@ -2,9 +2,14 @@ from Settings import *
 from random import choice, randrange
 
 
+ENEMYFLY_LIST = [(20, 300), (500, -300), (300, -900), (20, -1500), (600, -2200), (100, -2800),
+                 (20, -3400), (50, -4000), (300, -4600), (400, -5200), (240, -5800), (300, -6400),
+                 (0, -7000), (400, -7800), (0, -8400)
+                 ]
+
 # creates an enemy fly
 class EnemyFly(pygame.sprite.Sprite):
-    def __init__(self, game):
+    def __init__(self, game, x, y):
         self._layer = ENEMY_LAYER
         self.groups = game.all_sprites, game.enemyFly
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -15,15 +20,16 @@ class EnemyFly(pygame.sprite.Sprite):
         self.imageflydown = pygame.transform.scale(self.imageflydown, (70, 70))
         self.image = self.imageflyup
         self.rect = self.image.get_rect()
-        self.rect.centerx = 30
+        self.rect.centerx = x
         self.velocityX = randrange(1, ENEMYFLY_SPEED)
-        self.rect.y = randrange(display_height / 2)
+        self.rect.y = y
         self.velocityY = 0
         self.directionY = 0.5
+        self.directionX = 1
 
     # handles the movement of the fly
     def update(self):
-        self.rect.x += self.velocityX
+
         self.velocityY += self.directionY
         # changing the direction so it looks smooth
         if self.velocityY > ENEMYFLY_SPEED or self.velocityY < -ENEMYFLY_SPEED:
@@ -39,6 +45,14 @@ class EnemyFly(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = center
         self.rect.y += self.velocityY
+        # if the mobs x is greater than the edge flip
+        if self.rect.right > display_width - 60:
+            self.directionX = -1
+        # if the mobs x is less than the edge flip
+        if self.rect.right < 60:
+            self.directionX = 1
+
+        self.rect.x += self.velocityX * self.directionX
         # if he flies off screen then dies
         if self.rect.left > display_width + 20 or self.rect.right < -20:
             self.kill()

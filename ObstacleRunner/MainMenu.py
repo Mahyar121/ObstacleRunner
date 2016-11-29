@@ -45,8 +45,9 @@ class MainMenu:
         if 275 + 260 > mouse[0] > 275 and 205 + 50 > mouse[1] > 205:
             Buttons().buttonBorder(white, 270, 200, 270, 60)
             Buttons().buttonBorder(pink, 275, 205, 260, 50)
-           # if click[0] == 1:
-                 # self.tutorialPage()
+            if click[0] == 1:
+                from game import Game
+                Game().tutorialPage()
         else:
             Buttons().buttonBorder(white, 270, 200, 270, 60)
             Buttons().buttonBorder(red, 275, 205, 260, 50)

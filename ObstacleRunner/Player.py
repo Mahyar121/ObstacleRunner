@@ -29,6 +29,12 @@ class Player(pygame.sprite.Sprite):
         self.left = False
         self.right = True
         self.kicking = False
+        self.tutorial = False
+        self.tutorialLEFT = False
+        self.tutorialRIGHT = False
+        self.tutorialJUMP = False
+        self.tutorialPUNCH = False
+        self.tutorialKICK = False
 
     def jump(self):
         #jump if on platform
@@ -99,37 +105,75 @@ class Player(pygame.sprite.Sprite):
 
         self.acceleration = vector2(0, playerGravity)
         key = pygame.key.get_pressed()
-        if key[pygame.K_LEFT] or key[pygame.K_a]:
-            self.punching = False
-            self.left = True
-            self.right = False
-            self.kicking = False
-            self.walkingLeftanimation()
-            self.acceleration.x = -playerAcceleration
-        if key[pygame.K_RIGHT] or key[pygame.K_d]:
-            self.punching = False
-            self.right = True
-            self.left = False
-            self.kicking = False
-            self.walkingRightanimation()
-            self.acceleration.x = playerAcceleration
-        if key[pygame.K_SPACE]:
-            self.jump()
-        if key[pygame.K_f]:
-            self.punching = True
-            if self.left:
-                self.punchingLeftAnimation()
-            if self.right:
-                self.punchingRightAnimation()
-        if key[pygame.K_g]:
-            self.punching = False
-            self.kicking = True
-            if self.left:
-                self.kickingLeftAnimation()
-            if self.right:
-                self.kickingRightAnimation()
-
-
+        if not self.tutorial:
+            if key[pygame.K_LEFT] or key[pygame.K_a]:
+                self.punching = False
+                self.left = True
+                self.right = False
+                self.kicking = False
+                self.walkingLeftanimation()
+                self.acceleration.x = -playerAcceleration
+            if key[pygame.K_RIGHT] or key[pygame.K_d]:
+                self.punching = False
+                self.right = True
+                self.left = False
+                self.kicking = False
+                self.walkingRightanimation()
+                self.acceleration.x = playerAcceleration
+            if key[pygame.K_SPACE]:
+                self.jump()
+            if key[pygame.K_f]:
+                self.punching = True
+                if self.left:
+                    self.punchingLeftAnimation()
+                if self.right:
+                    self.punchingRightAnimation()
+            if key[pygame.K_g]:
+                self.punching = False
+                self.kicking = True
+                if self.left:
+                    self.kickingLeftAnimation()
+                if self.right:
+                    self.kickingRightAnimation()
+        elif self.tutorial:
+            if key[pygame.K_LEFT] or key[pygame.K_a]:
+                self.tutorialLEFT = True
+                self.punching = False
+                self.left = True
+                self.right = False
+                self.kicking = False
+                self.walkingLeftanimation()
+                self.acceleration.x = -playerAcceleration
+            if key[pygame.K_RIGHT] or key[pygame.K_d] and self.tutorialLEFT:
+                self.tutorialRIGHT = True
+                self.punching = False
+                self.right = True
+                self.left = False
+                self.kicking = False
+                self.walkingRightanimation()
+                self.acceleration.x = playerAcceleration
+            if key[pygame.K_SPACE] and self.tutorialLEFT and self.tutorialRIGHT:
+                self.tutorialJUMP = True
+                self.jump()
+            if key[pygame.K_f] and self.tutorialLEFT and self.tutorialRIGHT and self.tutorialJUMP:
+                self.tutorialPUNCH = True
+                self.punching = True
+                if self.left:
+                    self.punchingLeftAnimation()
+                if self.right:
+                    self.punchingRightAnimation()
+            if key[pygame.K_g] and self.tutorialLEFT and self.tutorialRIGHT and self.tutorialJUMP \
+                    and self.tutorialPUNCH:
+                self.tutorialKICK = True
+                self.punching = False
+                self.kicking = True
+                if self.left:
+                    self.kickingLeftAnimation()
+                if self.right:
+                    self.kickingRightAnimation()
+            if key[pygame.K_q]:
+                from MainMenu import MainMenu
+                MainMenu().game_intro()
         # calls the standing animation
         if self.velocity.x <= 0 and not self.punching and not self.jumping and not self.kicking:
             self.standingAnimation()
