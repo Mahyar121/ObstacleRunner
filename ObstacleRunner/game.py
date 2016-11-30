@@ -211,6 +211,7 @@ class Game:
     def loadSprites(self):
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.platforms = pygame.sprite.Group()
+        self.finalplatform = pygame.sprite.Group()
         self.coin = pygame.sprite.Group()
         self.enemyFly = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
@@ -256,6 +257,10 @@ class Game:
         # creates the small stone platform
         for stonesmallplatform in STONE_SMALL_PLATFORM_LIST:
             StoneSmallPlatform(self, *stonesmallplatform)
+        # final platform here
+        for grassfinalplatform in GRASS_FINAL_PLATFORM_LIST:
+            GrassFinalPlatform(self, *grassfinalplatform)
+
         # creates clouds on the map
         for i in range(8):
             from Cloud import Cloud
@@ -278,6 +283,49 @@ class Game:
                         self.highscore.score += 100
             elif enemyspike_hits:
                 self.playerDead = True
+
+        enemybrown_hits = pygame.sprite.spritecollide(self.player, self.brownmob, False, pygame.sprite.collide_mask)
+        for brown in self.brownmob:
+            if self.player.punching or self.player.kicking:
+                if self.player.right:
+                    if enemybrown_hits and brown.rect.x >= self.player.rect.x and brown.rect.y >= self.player.rect.y:
+                        brown.kill()
+                        self.highscore.score += 150
+                if self.player.left:
+                    if enemybrown_hits and brown.rect.x <= self.player.rect.x and brown.rect.y >= self.player.rect.y:
+                        brown.kill()
+                        self.highscore.score += 150
+            elif enemybrown_hits:
+                self.playerDead = True
+
+        enemydig_hits = pygame.sprite.spritecollide(self.player, self.digletmob, False, pygame.sprite.collide_mask)
+        for dig in self.digletmob:
+            if self.player.punching or self.player.kicking:
+                if self.player.right:
+                    if enemydig_hits and dig.rect.x >= self.player.rect.x and dig.rect.y >= self.player.rect.y:
+                        dig.kill()
+                        self.highscore.score += 175
+                if self.player.left:
+                    if enemydig_hits and dig.rect.x <= self.player.rect.x and dig.rect.y >= self.player.rect.y:
+                        dig.kill()
+                        self.highscore.score += 175
+            elif enemydig_hits:
+                self.playerDead = True
+
+        enemyskull_hits = pygame.sprite.spritecollide(self.player, self.skullmob, False, pygame.sprite.collide_mask)
+        for skull in self.skullmob:
+            if self.player.punching or self.player.kicking:
+                if self.player.right:
+                    if enemyskull_hits and skull.rect.x >= self.player.rect.x and skull.rect.y >= self.player.rect.y:
+                        skull.kill()
+                        self.highscore.score += 250
+                if self.player.left:
+                    if enemyskull_hits and skull.rect.x <= self.player.rect.x and skull.rect.y >= self.player.rect.y:
+                        skull.kill()
+                        self.highscore.score += 250
+            elif enemyskull_hits:
+                self.playerDead = True
+
 
         # check if hits enemyfly
         enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
@@ -309,6 +357,8 @@ class Game:
                 self.highscore.score += 200
             if chits.type == "bronzecoin":
                 self.highscore.score += 100
+            if chits.type == "goalcoin":
+                self.win = True
 
     def moving_camera(self):
         # if player reaches top of the screen move the camera

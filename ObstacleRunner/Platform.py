@@ -17,9 +17,11 @@ SNOW_BIG_PLATFORM_LIST = [(-70, -4300), (500, -4300), (300, -5700), (0, -5900)]
 SNOW_SMALL_PLATFORM_LIST = [(100, -4500), (300, -4700), (0, -4900), (600, -5100), (0, -5300), (600, -5500),
                             (350, -6100), (100, -6300), (0, -6500), (300, -6500), (600, -6500)]
 # X and Y coordinates to spawn stone platforms
-STONE_BIG_PLATFORM_LIST = [(-70, -6700), (500, -6700), (50, -8100), (300, -8300), (250, -9300)]
+STONE_BIG_PLATFORM_LIST = [(-70, -6700), (500, -6700), (50, -8100), (300, -8300)]
 STONE_SMALL_PLATFORM_LIST = [(100, -6900), (300, -7100), (500, -7300), (600, -7500), (0, -7700), (600, -7900),
                              (400, -8500), (200, -8700), (300, -8900), (0, -9100), (300, -9100), (600, -9100)]
+
+GRASS_FINAL_PLATFORM_LIST = [(250, -9300)]
 
 
 class GrassBigPlatform(pygame.sprite.Sprite):
@@ -92,7 +94,10 @@ class SandBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        # mob of your choice
+        # Added BrownMob here - Michael
+        from Enemy import BrownMob
+        BrownMob(self.game, self)
+
 
 class SandSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -120,7 +125,8 @@ class SnowBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        # mob of your choice thats diff
+        from Enemy import DigletMob
+        DigletMob(self.game, self)
 
 class SnowSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -148,7 +154,8 @@ class StoneBigPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        # mob of your choice thats diff
+        from Enemy import SkullMob
+        SkullMob(self.game, self)
 
 class StoneSmallPlatform(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -163,4 +170,18 @@ class StoneSmallPlatform(pygame.sprite.Sprite):
         self.rect.y = y
         from Coin import GoldCoin
         GoldCoin(self.game, self)
+
+class GrassFinalPlatform(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self._layer = PLATFORM_LAYER
+        self.groups = game.all_sprites, game.platforms
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = [self.game.platformSpriteSheet.get_image(0, 288, 380, 94)]
+        self.image = choice(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        from Coin import GoalBalloon
+        GoalBalloon(self.game, self)
 

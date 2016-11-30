@@ -120,15 +120,15 @@ class BrownMob(pygame.sprite.Sprite):
         ]
 
         for frames in self.walking_r:
-            frames = pygame.transform.scale(frames, (50, 70))
+            frames = pygame.transform.scale(frames, (70, 70))
             self.walking_l.append(pygame.transform.flip(frames, True, False))
 
         self.image = self.walking_r[0]
-        self.image = pygame.transform.scale(self.image, (50, 70))
+        self.image = pygame.transform.scale(self.image, (70, 70))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.centerx = self.plat.rect.centerx
-        self.velocityX = ENEMYSPIKE_SPEED
+        self.velocityX = ENEMYBROWN_SPEED
         self.direction = 1
         self.last_update = 0
         self.current_frame = 0
@@ -159,7 +159,7 @@ class BrownMob(pygame.sprite.Sprite):
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.walking_l)
             self.image = self.walking_l[self.current_frame]
-            self.image = pygame.transform.scale(self.image, (50, 70))
+            self.image = pygame.transform.scale(self.image, (70, 70))
             self.image.set_colorkey(darkred)
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -169,7 +169,7 @@ class BrownMob(pygame.sprite.Sprite):
             self.last_update = now
             self.current_frame = (self.current_frame + 1) % len(self.walking_r)
             self.image = self.walking_r[self.current_frame]
-            self.image = pygame.transform.scale(self.image, (50, 70))
+            self.image = pygame.transform.scale(self.image, (70, 70))
             self.image.set_colorkey(darkred)
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -200,7 +200,7 @@ class SkullMob(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.centerx = self.plat.rect.centerx
-        self.velocityX = ENEMYSPIKE_SPEED
+        self.velocityX = ENEMYSKULL_SPEED
         self.direction = 1
         self.last_update = 0
         self.current_frame = 0
@@ -264,15 +264,15 @@ class DigletMob(pygame.sprite.Sprite):
         ]
 
         for frames in self.walking_r:
-            frames = pygame.transform.scale(frames, (50, 70))
+            frames = pygame.transform.scale(frames, (70, 70))
             self.walking_l.append(pygame.transform.flip(frames, True, False))
 
         self.image = self.walking_r[0]
-        self.image = pygame.transform.scale(self.image, (50, 70))
+        self.image = pygame.transform.scale(self.image, (70, 70))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.centerx = self.plat.rect.centerx
-        self.velocityX = ENEMYSPIKE_SPEED
+        self.velocityX = ENEMYDIG_SPEED
         self.direction = 1
         self.last_update = 0
         self.current_frame = 0
