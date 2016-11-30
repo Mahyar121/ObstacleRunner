@@ -78,12 +78,10 @@ class GoalBalloon(pygame.sprite.Sprite):
         self.type = choice(["goalcoin"])
         self.image = pygame.image.load("balloon.png")
         self.image.set_colorkey(black)
-        self.image = pygame.transform.scale(self.image, (380, 240))
+        self.image = pygame.transform.scale(self.image, (380, 200))
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
-        self.rect.bottom = self.plat.rect.top - 1
+        self.rect.bottom = self.plat.rect.top - 5
 
     def update(self):
-        self.rect.bottom = self.plat.rect.top - 1
-        if not self.game.platforms.has(self.plat):
-            self.kill()
+        self.rect.bottom = self.plat.rect.top - 5

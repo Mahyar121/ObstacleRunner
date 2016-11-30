@@ -326,7 +326,6 @@ class Game:
             elif enemyskull_hits:
                 self.playerDead = True
 
-
         # check if hits enemyfly
         enemyfly_hits = pygame.sprite.spritecollide(self.player, self.enemyFly, False, pygame.sprite.collide_mask)
         if enemyfly_hits:
@@ -358,26 +357,26 @@ class Game:
             if chits.type == "bronzecoin":
                 self.highscore.score += 100
             if chits.type == "goalcoin":
-                self.win = True
+               self.win = True
 
     def moving_camera(self):
         # if player reaches top of the screen move the camera
-        if self.player.rect.top <= display_height / 4:
+        if self.player.rect.top <= display_height / 3:
             from random import randrange
             if randrange(100) < 10:
                 from Cloud import Cloud
                 Cloud(self)
-            self.player.position.y += max(abs(self.player.velocity.y), 2)
+            self.player.position.y += max(abs(self.player.velocity.y), 3)
             # move clouds down half of the player speed
             for cloud in self.clouds:
                 cloudspeed = randrange(1, 3)
-                cloud.rect.y += max(abs(self.player.velocity.y / cloudspeed), 2)
+                cloud.rect.y += max(abs(self.player.velocity.y / cloudspeed), 3)
             # move EnemyFly down based on player speed
             for enemyfly in self.enemyFly:
-                enemyfly.rect.y += max(abs(self.player.velocity.y), 2)
+                enemyfly.rect.y += max(abs(self.player.velocity.y), 3)
             # move platforms down based on player speed
             for plat in self.platforms:
-                plat.rect.y += max(abs(self.player.velocity.y), 2)
+                plat.rect.y += max(abs(self.player.velocity.y), 3)
                 if plat.rect.top >= display_height:
                     plat.kill()
                     self.highscore.score += 10
