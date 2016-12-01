@@ -12,6 +12,11 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
+
+        self.END_MUSIC = pygame.mixer.Sound('end.ogg')
+        self.KILL_SOUND = pygame.mixer.Sound('lose.wav')
+        self.ENEMY_DEAD_SOUND = pygame.mixer.Sound('scream.wav')
+
         pygame.display.set_caption(title)
         pygame.font.init()
         self.font = pygame.font.Font(FONTNAME, 20)
@@ -42,6 +47,9 @@ class Game:
         self.gameLoop()
     # runs the game
     def gameLoop(self):
+        self.GAME_MUSIC = pygame.mixer.Sound('gamemusic.ogg')
+        self.GAME_MUSIC.set_volume(0.2)
+        self.GAME_MUSIC.play(loops=-1)
         self.running = True
         while self.running:
             clock.tick(FPS)
@@ -72,6 +80,7 @@ class Game:
 
     # displays the images on the screen
     def draw(self):
+
         screen.fill(teal)
         self.all_sprites.draw(screen)
         scoreFont = pygame.font.Font(FONTNAME, 30)
@@ -94,6 +103,11 @@ class Game:
                 from MainMenu import MainMenu
                 MainMenu().game_intro()
         if self.playerDead:
+            self.GAME_MUSIC.fadeout(200)
+            channel = self.KILL_SOUND.play()  # Added sound here - Michael
+            while channel.get_busy():
+                pygame.time.wait(100)
+            self.END_MUSIC.play()
             highscore = 1
             screen.blit(pygame.font.Font(FONTNAME, 100).render("Game Over", -1, white), (102, 72))
             screen.blit(pygame.font.Font(FONTNAME, 100).render("Game Over", -1, red), (100, 70))
@@ -107,6 +121,7 @@ class Game:
                 self.highscore.getUserName(self.highscore.score)
                 self.highscore.addHighScores(self.highscore.score)
                 highscore = 0
+                self.END_MUSIC.fadeout(500)
                 from MainMenu import MainMenu
                 MainMenu().game_intro()
         pygame.display.flip()
@@ -273,15 +288,18 @@ class Game:
     def enemy_collisions(self):
         # template for killing enemies
         # enemyspike
+
         enemyspike_hits = pygame.sprite.spritecollide(self.player, self.spikeenemy, False, pygame.sprite.collide_mask)
         for spike in self.spikeenemy:
             if self.player.punching or self.player.kicking:
                 if self.player.right:
                     if enemyspike_hits and spike.rect.x >= self.player.rect.x and spike.rect.y >= self.player.rect.y:
+                        self.ENEMY_DEAD_SOUND.play()
                         spike.kill()
                         self.highscore.score += 100
                 if self.player.left:
                     if enemyspike_hits and spike.rect.x <= self.player.rect.x and spike.rect.y >= self.player.rect.y:
+                        self.ENEMY_DEAD_SOUND.play()
                         spike.kill()
                         self.highscore.score += 100
             elif enemyspike_hits:
@@ -293,10 +311,12 @@ class Game:
                 if self.player.right:
                     if enemybrown_hits and brown.rect.x >= self.player.rect.x and brown.rect.y >= self.player.rect.y:
                         brown.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 150
                 if self.player.left:
                     if enemybrown_hits and brown.rect.x <= self.player.rect.x and brown.rect.y >= self.player.rect.y:
                         brown.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 150
             elif enemybrown_hits:
                 self.playerDead = True
@@ -307,10 +327,12 @@ class Game:
                 if self.player.right:
                     if enemydig_hits and dig.rect.x >= self.player.rect.x and dig.rect.y >= self.player.rect.y:
                         dig.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 175
                 if self.player.left:
                     if enemydig_hits and dig.rect.x <= self.player.rect.x and dig.rect.y >= self.player.rect.y:
                         dig.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 175
             elif enemydig_hits:
                 self.playerDead = True
@@ -321,10 +343,12 @@ class Game:
                 if self.player.right:
                     if enemyskull_hits and skull.rect.x >= self.player.rect.x and skull.rect.y >= self.player.rect.y:
                         skull.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 250
                 if self.player.left:
                     if enemyskull_hits and skull.rect.x <= self.player.rect.x and skull.rect.y >= self.player.rect.y:
                         skull.kill()
+                        self.ENEMY_DEAD_SOUND.play()
                         self.highscore.score += 250
             elif enemyskull_hits:
                 self.playerDead = True
@@ -351,8 +375,10 @@ class Game:
 
     def coin_collisions(self):
         # if player hits coin
+        self.COIN_SOUND = pygame.mixer.Sound('coin.wav')
         coin_hits = pygame.sprite.spritecollide(self.player, self.coin, True)
         for chits in coin_hits:
+            self.COIN_SOUND.play()
             if chits.type == "goldcoin":
                 self.highscore.score += 300
             if chits.type == "silvercoin":

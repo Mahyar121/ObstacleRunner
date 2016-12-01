@@ -14,6 +14,7 @@ class MainMenu:
             Buttons().buttonBorder(white, 270, 500, 270, 60)
             Buttons().buttonBorder(pink, 275, 505, 260, 50)
             if click[0] == 1:
+                self.background_sound.fadeout(500)  # Added this fadeout - Michael
                 pygame.quit()
                 quit()
         else:
@@ -26,7 +27,9 @@ class MainMenu:
             Buttons().buttonBorder(pink, 275, 405, 260, 50)
             if click[0] == 1:
                 from HighScores import HighScores
+                self.background_sound.fadeout(500)  # Added this fadeout - Michael
                 HighScores().highScoresPage()
+
         else:
             Buttons().buttonBorder(white, 270, 400, 270, 60)
             Buttons().buttonBorder(red, 275, 405, 260, 50)
@@ -36,6 +39,7 @@ class MainMenu:
             Buttons().buttonBorder(white, 270, 300, 270, 60)
             Buttons().buttonBorder(pink, 275, 305, 260, 50)
             if click[0] == 1:
+                self.background_sound.fadeout(500)  # Added this fadeout - Michael
                 ControlsPage().controlsPage()
         else:
             Buttons().buttonBorder(white, 270, 300, 270, 60)
@@ -60,6 +64,7 @@ class MainMenu:
             Buttons().buttonBorder(pink, 275, 105, 260, 50)
             if click[0] == 1:
                 from game import Game
+                self.background_sound.fadeout(500)  # Added this fadeout - Michael
                 Game().new()
               #self.gameDifficulty()
         else:

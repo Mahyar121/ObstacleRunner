@@ -4,6 +4,11 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game):
+
+        self.JUMP_SOUND = pygame.mixer.Sound('red.wav')
+        self.PUNCH_SOUND = pygame.mixer.Sound('blue.wav')
+        self.KICK_SOUND = pygame.mixer.Sound('green.wav')
+
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -43,6 +48,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y -= 2
         if hits and not self.jumping:
             self.jumping = True
+            self.JUMP_SOUND.play()  # Added sound here- Michael
             self.velocity.y = -playerJump
 
     def jumpfall(self):
@@ -124,6 +130,7 @@ class Player(pygame.sprite.Sprite):
                 self.jump()
             if key[pygame.K_f]:
                 self.punching = True
+                self.PUNCH_SOUND.play()  # Added sound here - Michael
                 if self.left:
                     self.punchingLeftAnimation()
                 if self.right:
@@ -131,6 +138,7 @@ class Player(pygame.sprite.Sprite):
             if key[pygame.K_g]:
                 self.punching = False
                 self.kicking = True
+                self.KICK_SOUND.play()  # Added Sound here- Michael
                 if self.left:
                     self.kickingLeftAnimation()
                 if self.right:
@@ -282,4 +290,5 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.bottom = bottom
         self.mask = pygame.mask.from_surface(self.image)
+
 
