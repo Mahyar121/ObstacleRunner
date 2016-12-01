@@ -12,8 +12,6 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-        #pygame.mixer.music.load('kirbytheme.mp3') #this line doesnt work on my computer
-        #pygame.mixer.music.play()
         pygame.display.set_caption(title)
         pygame.font.init()
         self.font = pygame.font.Font(FONTNAME, 20)
@@ -33,6 +31,8 @@ class Game:
         self.cloud_images = []
         for cloud in range(1, 4):
             self.cloud_images.append(pygame.image.load("cloud{}.png".format(cloud)).convert())
+
+
 
 # used to refresh the games settings for when the player plays again
     def new(self):
@@ -112,6 +112,7 @@ class Game:
         pygame.display.flip()
 
     def tutorialPage(self):
+
         seconds = 5
         mainmenuSeconds = 0
         key = pygame.key.get_pressed()
@@ -397,6 +398,7 @@ class Game:
                 for sprite in self.all_sprites:
                     if sprite.rect.bottom < 0:
                         self.player.position = vector2(100, 530)
+
 
 if __name__ == "__main__":
     Game()

@@ -47,6 +47,8 @@ class MainMenu:
             Buttons().buttonBorder(pink, 275, 205, 260, 50)
             if click[0] == 1:
                 from game import Game
+                # fades out the sound
+                self.background_sound.fadeout(500)
                 Game().tutorialPage()
         else:
             Buttons().buttonBorder(white, 270, 200, 270, 60)
@@ -67,6 +69,13 @@ class MainMenu:
 
     def game_intro(self):
         intro = True
+        # initializes the sound
+        self.background_sound = pygame.mixer.Sound("kirbytheme.ogg")
+        # sets the volume from range 0.0 - 1.0
+        self.background_sound.set_volume(0.2)
+        # allows for endless looping!
+        self.background_sound.play(loops=-1)
+
         while intro:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
