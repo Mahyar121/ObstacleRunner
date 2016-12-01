@@ -6,8 +6,11 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, game):
 
         self.JUMP_SOUND = pygame.mixer.Sound('red.wav')
+        self.JUMP_SOUND.set_volume(.2)
         self.PUNCH_SOUND = pygame.mixer.Sound('blue.wav')
+        self.PUNCH_SOUND.set_volume(.1)
         self.KICK_SOUND = pygame.mixer.Sound('green.wav')
+        self.KICK_SOUND.set_volume(.1)
 
         self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
@@ -166,6 +169,7 @@ class Player(pygame.sprite.Sprite):
             if key[pygame.K_f] and self.tutorialLEFT and self.tutorialRIGHT and self.tutorialJUMP:
                 self.tutorialPUNCH = True
                 self.punching = True
+                self.PUNCH_SOUND.play()
                 if self.left:
                     self.punchingLeftAnimation()
                 if self.right:
@@ -175,6 +179,7 @@ class Player(pygame.sprite.Sprite):
                 self.tutorialKICK = True
                 self.punching = False
                 self.kicking = True
+                self.KICK_SOUND.play()
                 if self.left:
                     self.kickingLeftAnimation()
                 if self.right:

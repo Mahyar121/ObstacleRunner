@@ -27,7 +27,7 @@ class MainMenu:
             Buttons().buttonBorder(pink, 275, 405, 260, 50)
             if click[0] == 1:
                 from HighScores import HighScores
-                self.background_sound.fadeout(500)  # Added this fadeout - Michael
+                self.background_sound.fadeout(1500)  # Added this fadeout - Michael
                 HighScores().highScoresPage()
 
         else:
@@ -39,7 +39,7 @@ class MainMenu:
             Buttons().buttonBorder(white, 270, 300, 270, 60)
             Buttons().buttonBorder(pink, 275, 305, 260, 50)
             if click[0] == 1:
-                self.background_sound.fadeout(500)  # Added this fadeout - Michael
+                self.background_sound.fadeout(1500)  # Added this fadeout - Michael
                 ControlsPage().controlsPage()
         else:
             Buttons().buttonBorder(white, 270, 300, 270, 60)
@@ -52,7 +52,7 @@ class MainMenu:
             if click[0] == 1:
                 from game import Game
                 # fades out the sound
-                self.background_sound.fadeout(500)
+                self.background_sound.fadeout(1500)
                 Game().tutorialPage()
         else:
             Buttons().buttonBorder(white, 270, 200, 270, 60)

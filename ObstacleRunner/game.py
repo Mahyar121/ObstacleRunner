@@ -16,6 +16,8 @@ class Game:
         self.END_MUSIC = pygame.mixer.Sound('end.ogg')
         self.KILL_SOUND = pygame.mixer.Sound('lose.wav')
         self.ENEMY_DEAD_SOUND = pygame.mixer.Sound('scream.wav')
+        self.ENEMY_DEAD_SOUND.set_volume(.4)
+        self.WIN_SOUND = pygame.mixer.Sound("win.wav")
 
         pygame.display.set_caption(title)
         pygame.font.init()
@@ -48,7 +50,7 @@ class Game:
     # runs the game
     def gameLoop(self):
         self.GAME_MUSIC = pygame.mixer.Sound('gamemusic.ogg')
-        self.GAME_MUSIC.set_volume(0.2)
+        self.GAME_MUSIC.set_volume(0.1)
         self.GAME_MUSIC.play(loops=-1)
         self.running = True
         while self.running:
@@ -87,6 +89,10 @@ class Game:
         screen.blit(scoreFont.render("Score: {}".format(self.highscore.score), -1, black), (501, 11))
         screen.blit(scoreFont.render("Score: {}".format(self.highscore.score), -1, white), (500, 10))
         if self.win:
+            self.GAME_MUSIC.fadeout(200)
+            winchannel = self.WIN_SOUND.play()  # Added sound here - Michael
+            while winchannel.get_busy():
+                pygame.time.wait(100)
             highscore = 1
             screen.blit(pygame.font.Font(FONTNAME, 100).render("YOU WON!", -1, white), (102, 72))
             screen.blit(pygame.font.Font(FONTNAME, 100).render("YOU WON!", -1, red), (100, 70))
@@ -137,6 +143,7 @@ class Game:
         tutorialExit = False
         bigFont = pygame.font.Font(FONTNAME, 40)
         medFont = pygame.font.Font(FONTNAME, 30)
+
         self.loadSprites()
 
         while not tutorialExit:
@@ -148,6 +155,7 @@ class Game:
             self.coin_collisions()
             self.player_death()
             self.all_sprites.draw(screen)
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -376,6 +384,7 @@ class Game:
     def coin_collisions(self):
         # if player hits coin
         self.COIN_SOUND = pygame.mixer.Sound('coin.wav')
+        self.COIN_SOUND.set_volume(.9)
         coin_hits = pygame.sprite.spritecollide(self.player, self.coin, True)
         for chits in coin_hits:
             self.COIN_SOUND.play()
