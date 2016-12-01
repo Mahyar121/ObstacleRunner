@@ -12,6 +12,8 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
+        #pygame.mixer.music.load('kirbytheme.mp3') #this line doesnt work on my computer
+        #pygame.mixer.music.play()
         pygame.display.set_caption(title)
         pygame.font.init()
         self.font = pygame.font.Font(FONTNAME, 20)
