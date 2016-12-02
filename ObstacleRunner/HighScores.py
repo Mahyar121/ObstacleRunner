@@ -1,5 +1,3 @@
-# This file loads, displays and allows the user to input their name for their score on the hi-score screen
-
 
 from pygame.locals import *
 from Buttons import *
@@ -89,6 +87,7 @@ class HighScores:
             }
             self.highScoreList.append(new_json_score)  # Add the score to the list of scores.
             self.highScoreList = self.sortHighScores(self.highScoreList)  # Sort the scores.
+
 
             highscore_file = open(self.fileName, "w")
             highscore_file.write(json.dumps(self.highScoreList))  # Save the list of scores to highscore.json

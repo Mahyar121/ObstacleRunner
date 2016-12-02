@@ -1,5 +1,3 @@
-# This file handles the loading and settings for the collectable coins in-game
-
 from Settings import *
 from random import choice
 

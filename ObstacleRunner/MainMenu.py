@@ -1,5 +1,3 @@
-# This file handles the button placement and clicks on the main game menu
-
 from ControlsPage import *
 from Settings import *
 import Player

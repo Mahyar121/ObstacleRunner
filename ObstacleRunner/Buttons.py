@@ -1,4 +1,3 @@
-# This file handles the settings and colors of the buttons used in the menus of the game
 
 from Settings import *
 

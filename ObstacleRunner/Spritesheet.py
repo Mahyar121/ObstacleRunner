@@ -1,5 +1,3 @@
-# This file handles the sprite sheets
-
 from Settings import *
 import pygame
 from pygame.locals import *
