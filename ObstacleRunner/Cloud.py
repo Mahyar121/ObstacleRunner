@@ -1,3 +1,5 @@
+# This file handles the loading and sizing of the clouds in the background of the game world
+
 from Settings import *
 from random import choice, randrange
 

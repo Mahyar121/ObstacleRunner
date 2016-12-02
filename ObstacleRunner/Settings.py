@@ -1,3 +1,5 @@
+# This file contains the numerical values for game settings such as speed, and spawn rates
+
 import pygame
 
 # game options

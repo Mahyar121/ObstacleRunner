@@ -1,3 +1,5 @@
+# This is the main game script, containing the game loop as well as linking to all other .py files
+
 #!/usr/bin/python
 
 import os

@@ -1,3 +1,5 @@
+# This file loads, displays and allows the user to input their name for their score on the hi-score screen
+
 
 from pygame.locals import *
 from Buttons import *
