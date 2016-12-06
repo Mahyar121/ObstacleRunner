@@ -1,6 +1,15 @@
 from ControlsPage import *
 from Settings import *
 import Player
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads the mainmenu screen
+'''
 
 class MainMenu:
     def __init__(self):

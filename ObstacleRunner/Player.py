@@ -1,5 +1,14 @@
 from game import *
 import pygame
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads the player and is in charge of all of the player's actions
+'''
 
 
 class Player(pygame.sprite.Sprite):

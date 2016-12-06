@@ -1,6 +1,15 @@
 from Settings import *
 from random import choice
 
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file generates 3 different kind of coins and the final balloon in the game
+'''
 
 # displays gold coins on the screen
 class GoldCoin(pygame.sprite.Sprite):

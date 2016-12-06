@@ -1,6 +1,15 @@
 from Settings import *
 import pygame
 from pygame.locals import *
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads sprites from a spritesheet
+'''
 
 
 # will handle spritesheet

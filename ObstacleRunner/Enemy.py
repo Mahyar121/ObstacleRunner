@@ -1,6 +1,15 @@
 from Settings import *
 from random import choice, randrange
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads all the enemies and the location of where the enemyfly will spawn.
+It also handles the AI of the enemies under the update functions
+'''
 
 ENEMYFLY_LIST = [(20, 300), (500, -300), (300, -900), (20, -1500), (600, -2200), (100, -2800),
                  (20, -3400), (50, -4000), (300, -4800), (400, -5500), (240, -5800), (300, -6400),

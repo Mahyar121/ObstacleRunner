@@ -2,7 +2,15 @@
 from pygame.locals import *
 from Buttons import *
 import json
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads the highscore page
+'''
 
 # handles the high scores
 class HighScores:

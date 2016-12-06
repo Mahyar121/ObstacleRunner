@@ -1,4 +1,13 @@
 import pygame
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file contains all of the global variables that control the settings
+'''
 
 # game options
 display_width = 800

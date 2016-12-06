@@ -6,7 +6,15 @@ from Platform import *
 from HighScores import *
 from Spritesheet import *
 from Enemy import *
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads the first level and the tutorial level
+'''
 # class were the game will be loaded from
 class Game:
     def __init__(self):

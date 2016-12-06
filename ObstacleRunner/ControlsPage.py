@@ -1,6 +1,14 @@
 from Buttons import *
 from Settings import *
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file loads the control page for the user
+'''
 
 class ControlsPage:
     def __init__(self):

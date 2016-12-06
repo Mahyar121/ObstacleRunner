@@ -1,4 +1,12 @@
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file generates button images and borders
+'''
 from Settings import *
 
 

@@ -1,6 +1,14 @@
 from Settings import *
 from random import choice, randrange
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
 
+Michael Franzen
+mfranzen15@gmail.com
+
+This file generates clouds for the background
+'''
 
 # class that is in charge of putting clouds on the screen
 class Cloud(pygame.sprite.Sprite):

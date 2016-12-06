@@ -1,6 +1,15 @@
 from Settings import *
 import pygame
 from random import *
+'''
+Mahyar Haji Babaie
+mahyarhajibabaie@csu.fullerton.edu
+
+Michael Franzen
+mfranzen15@gmail.com
+
+This file generates all the platforms and controls the location of where they spawn
+'''
 
 # X and Y coordinates to spawn grass platforms
 GRASS_BIG_PLATFORM_LIST = [(-70, 530), (500, 530), (100, 300), (100, -500), (100, -900)]
